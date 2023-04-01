@@ -6,41 +6,27 @@ using System.Threading.Tasks;
 
 namespace Carteira_de_criptomoeda
 {
-    internal class Corretora
+    internal class ItemCarteira
     {
-        public int codigo { get; set; }
-        public String nome { get; set; }
-        public List<Carteira> carteiras; // WIP
+        public Moeda moeda { get; set; }
+        public double quantidade { get; set; }
 
-        public Corretora() 
+        public ItemCarteira() { }
+
+        public ItemCarteira(Moeda moeda, double quantidade)
         {
-            this.carteiras = new List<Carteira>();
+            this.moeda = moeda;
+            this.quantidade = quantidade;
         }
 
-        public Corretora(int codigo, String nome, List<Carteira> carteiras)
+        public void ObtemCotacaoMoeda(Moeda moeda) // WIP
         {
-            this.codigo = codigo;
-            this.nome = nome;
-            this.carteiras = new List<Carteira>();
-        }
 
-        public void InsereCarteira(Carteira nova_carteira)
-        {
-            carteiras.Add(nova_carteira);
-        }
-
-        public void ImprimeCarteiras()
-        {
-            foreach(Carteira carteira in carteiras)
-            {
-                carteira.Imprime();
-            }
         }
 
         public void Imprime() // WIP
         {
-            Console.WriteLine("[Codigo: {0}, Nome: {1}");
+            
         }
-
     }
 }
