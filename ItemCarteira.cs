@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +24,7 @@ namespace Carteira_de_criptomoeda
             this.parMoedas = new List<ParMoeda>();
         }
 
-        public double ObtemCotacaoMoeda(Moeda moeda)
+        public double ObtemCotacaoMoeda(Moeda moeda) 
         {
             ParMoeda parMoeda = parMoedas.Find
                 (
@@ -40,10 +40,16 @@ namespace Carteira_de_criptomoeda
         {
             moeda.Imprime();
             Console.WriteLine("quantidade: {0}", quantidade);
-            foreach(ParMoeda parMoeda in parMoedas)
+            foreach (ParMoeda parMoeda in parMoedas)
             {
                 parMoeda.Imprime();
             }
+        }
+
+        public void AdicionarParMoeda(Moeda moeda_cotacao, double valor)
+        {
+            ParMoeda novo_par_moeda = new ParMoeda(this.moeda, moeda_cotacao, valor);
+            this.parMoedas.Add(novo_par_moeda);
         }
     }
 }
