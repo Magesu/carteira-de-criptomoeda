@@ -10,23 +10,40 @@ namespace Carteira_de_criptomoeda
     {
         public Moeda moeda { get; set; }
         public double quantidade { get; set; }
+        public List<ParMoeda> parMoedas;
 
-        public ItemCarteira() { }
+        public ItemCarteira() 
+        {
+            this.parMoedas = new List<ParMoeda>();
+        }
 
         public ItemCarteira(Moeda moeda, double quantidade)
         {
             this.moeda = moeda;
             this.quantidade = quantidade;
+            this.parMoedas = new List<ParMoeda>();
         }
 
-        public void ObtemCotacaoMoeda(Moeda moeda) // WIP
+        public double ObtemCotacaoMoeda(Moeda moeda) // WIP
         {
-
+            ParMoeda parMoeda = parMoedas.Find
+                (
+                    delegate (ParMoeda pm)
+                    {
+                        return pm.moedaCotacao == moeda;
+                    }
+                );
+            return quantidade * parMoeda.valor;
         }
 
-        public void Imprime() // WIP
+        public void Imprime()
         {
-            
+            moeda.Imprime();
+            Console.WriteLine("quantidade: {0}", quantidade);
+            foreach(ParMoeda parMoeda in parMoedas)
+            {
+                parMoeda.Imprime();
+            }
         }
     }
 }
