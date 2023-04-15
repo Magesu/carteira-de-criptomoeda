@@ -21,9 +21,11 @@ namespace Carteira_de_criptomoeda
             this.valor = valor;
         }
 
-        public void Imprime() // WIP
+        public void Imprime()
         {
-            
+            moedaBase.Imprime();
+            moedaCotacao.Imprime();
+            Console.WriteLine("valor: {0:0.00}", valor);
         }
     }
 }
