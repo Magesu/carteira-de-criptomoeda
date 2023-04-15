@@ -24,7 +24,7 @@ namespace Carteira_de_criptomoeda
             this.parMoedas = new List<ParMoeda>();
         }
 
-        public double ObtemCotacaoMoeda(Moeda moeda) // WIP
+        public double ObtemCotacaoMoeda(Moeda moeda)
         {
             ParMoeda parMoeda = parMoedas.Find
                 (
