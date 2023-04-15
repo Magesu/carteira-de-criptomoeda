@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,20 +24,22 @@ namespace Carteira_de_criptomoeda
             this.itensCarteira = new List<ItemCarteira>();
         }
 
-        public void AdicionarItemCarteira(ItemCarteira novo_item_carteira)
+        public void InsereItemCarteira(Moeda moeda, double quant) //WIP
         {
+            ItemCarteira novo_item_carteira = new ItemCarteira(moeda, quant);
             itensCarteira.Add(novo_item_carteira);
         }
 
-        public void InsereItemCarteira(Moeda moeda, double quant) //WIP
+        public void Imprime()
         {
-
-        }
-
-        public void Imprime() // WIP
-        {
-            Console.WriteLine("[endereco: {0}, cliente: {1}");
-
+            Console.WriteLine("Endereco: {0}", endereco);
+            Console.Write("Cliente: ");
+            cliente.Imprime();
+            Console.WriteLine("Itens da carteira:");
+            foreach(ItemCarteira item in itensCarteira)
+            {
+                item.Imprime();
+            }
         }
 
         public void Deposita(Moeda moeda, double quant) // WIP
