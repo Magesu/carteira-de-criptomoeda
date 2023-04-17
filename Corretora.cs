@@ -10,7 +10,7 @@ namespace Carteira_de_criptomoeda
     {
         public int codigo { get; set; }
         public String nome { get; set; }
-        public List<Carteira> carteiras; // WIP
+        public List<Carteira> carteiras;
 
         public Corretora()
         {
@@ -27,6 +27,15 @@ namespace Carteira_de_criptomoeda
         public void InsereCarteira(Carteira nova_carteira)
         {
             carteiras.Add(nova_carteira);
+        }
+
+        public void RemoveCarteira(String endereco)
+        {
+            var carteira_para_remover = carteiras.SingleOrDefault(r => r.endereco == endereco);
+            if (carteira_para_remover != null)
+            {
+                carteiras.Remove(carteira_para_remover);
+            }
         }
 
         public void ImprimeCarteiras()

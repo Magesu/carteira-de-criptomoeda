@@ -10,7 +10,7 @@ namespace Carteira_de_criptomoeda
     {
         public String endereco { get; set; }
         public Cliente cliente { get; set; }
-        public List<ItemCarteira> itensCarteira; // WIP
+        public List<ItemCarteira> itensCarteira;
 
         public Carteira()
         {
@@ -30,9 +30,9 @@ namespace Carteira_de_criptomoeda
             itensCarteira.Add(novo_item_carteira);
         }
 
-        public void RemoveItemCarteira(string codigo)
+        public void RemoveItemCarteira(Moeda moeda)
         {
-            var item_para_remover = itensCarteira.SingleOrDefault(r => r.moeda.Codigo == codigo);
+            var item_para_remover = itensCarteira.SingleOrDefault(r => r.moeda == moeda);
             if (item_para_remover != null)
             {
                 itensCarteira.Remove(item_para_remover);
@@ -53,14 +53,29 @@ namespace Carteira_de_criptomoeda
             ItemCarteira.ImprimeParMoedas();
         }
 
-        public void Deposita(Moeda moeda, double quant) // WIP
+        public void Deposita(Moeda moeda, double quant)
         {
-            
+            ItemCarteira item_carteira = itensCarteira.SingleOrDefault(r => r.moeda == moeda);
+            if(item_carteira != null)
+            {
+                item_carteira.quantidade += quant;
+            }
         }
 
-        public void Saca(Moeda moeda, double quant) // WIP
+        public void Saca(Moeda moeda, double quant)
         {
-
+            ItemCarteira item_carteira = itensCarteira.SingleOrDefault(r => r.moeda == moeda);
+            if (item_carteira != null)
+            {
+                if (item_carteira.quantidade > quant)
+                {
+                    item_carteira.quantidade -= quant;
+                }
+                else
+                {
+                    Console.WriteLine("Erro: quantidade insuficiente de moedas");
+                }
+            }
         }
     }
 }
