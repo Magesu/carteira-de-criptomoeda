@@ -51,10 +51,19 @@ namespace Carteira_de_criptomoeda
             }
         }
 
-        public void AdicionarParMoeda(Moeda moeda_cotacao, double valor)
+        public static void AdicionarParMoeda(Moeda moeda_base, Moeda moeda_cotacao, double valor)
         {
-            ParMoeda novo_par_moeda = new ParMoeda(this.moeda, moeda_cotacao, valor);
+            ParMoeda novo_par_moeda = new ParMoeda(moeda_base, moeda_cotacao, valor);
             parMoedas.Add(novo_par_moeda);
+        }
+
+        public static void RemoverParMoeda(Moeda moeda_base, Moeda moeda_cotacao)
+        {
+            ParMoeda par_moeda_a_ser_removido = parMoedas.SingleOrDefault(r => r.moedaBase == moeda_base && r.moedaCotacao == moeda_cotacao);
+            if(par_moeda_a_ser_removido != null)
+            {
+                parMoedas.Remove(par_moeda_a_ser_removido);
+            }
         }
     }
 }
