@@ -26,14 +26,15 @@ namespace Carteira_de_criptomoeda
 
         public double ObtemCotacaoMoeda(Moeda moeda) 
         {
-            ParMoeda parMoeda = parMoedas.Find
-                (
-                    delegate (ParMoeda pm)
-                    {
-                        return pm.moedaCotacao == moeda;
-                    }
-                );
-            return quantidade * parMoeda.valor;
+            ParMoeda parMoeda = parMoedas.SingleOrDefault(r => r.moedaCotacao == moeda);
+            if(parMoeda != null) 
+            {
+                return quantidade * parMoeda.valor;
+            }
+            else
+            {
+                return -1;
+            }
         }
 
         public void Imprime()

@@ -17,17 +17,26 @@ namespace Carteira_de_criptomoeda
             this.itensCarteira = new List<ItemCarteira>();
         }
 
-        public Carteira(String endereco, Cliente cliente, List<ItemCarteira> itensCarteira)
+        public Carteira(String endereco, Cliente cliente)
         {
             this.endereco = endereco;
             this.cliente = cliente;
             this.itensCarteira = new List<ItemCarteira>();
         }
 
-        public void InsereItemCarteira(Moeda moeda, double quant) //WIP
+        public void InsereItemCarteira(Moeda moeda, double quant)
         {
             ItemCarteira novo_item_carteira = new ItemCarteira(moeda, quant);
             itensCarteira.Add(novo_item_carteira);
+        }
+
+        public void RemoveItemCarteira(string codigo)
+        {
+            var item_para_remover = itensCarteira.SingleOrDefault(r => r.moeda.Codigo == codigo);
+            if (item_para_remover != null)
+            {
+                itensCarteira.Remove(item_para_remover);
+            }
         }
 
         public void Imprime()
@@ -44,7 +53,7 @@ namespace Carteira_de_criptomoeda
 
         public void Deposita(Moeda moeda, double quant) // WIP
         {
-
+            
         }
 
         public void Saca(Moeda moeda, double quant) // WIP

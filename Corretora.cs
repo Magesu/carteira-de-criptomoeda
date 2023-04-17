@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +12,7 @@ namespace Carteira_de_criptomoeda
         public String nome { get; set; }
         public List<Carteira> carteiras; // WIP
 
-        public Corretora() 
+        public Corretora()
         {
             this.carteiras = new List<Carteira>();
         }
@@ -31,15 +31,21 @@ namespace Carteira_de_criptomoeda
 
         public void ImprimeCarteiras()
         {
-            foreach(Carteira carteira in carteiras)
+            foreach (Carteira carteira in carteiras)
             {
                 carteira.Imprime();
             }
         }
 
-        public void Imprime() // WIP
+        public void Imprime()
         {
-            Console.WriteLine("[Codigo: {0}, Nome: {1}");
+            Console.WriteLine("Codigo: {0}", codigo);
+            Console.WriteLine("Nome: {0}", nome);
+            Console.WriteLine("Carteiras:");
+            foreach(Carteira carteira in carteiras)
+            {
+                carteira.Imprime();
+            }
         }
 
     }
