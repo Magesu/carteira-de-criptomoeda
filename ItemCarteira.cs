@@ -10,18 +10,18 @@ namespace Carteira_de_criptomoeda
     {
         public Moeda moeda { get; set; }
         public double quantidade { get; set; }
-        public List<ParMoeda> parMoedas;
+        public static List<ParMoeda> parMoedas;
 
         public ItemCarteira() 
         {
-            this.parMoedas = new List<ParMoeda>();
+            parMoedas = new List<ParMoeda>();
         }
 
         public ItemCarteira(Moeda moeda, double quantidade)
         {
             this.moeda = moeda;
             this.quantidade = quantidade;
-            this.parMoedas = new List<ParMoeda>();
+            parMoedas = new List<ParMoeda>();
         }
 
         public double ObtemCotacaoMoeda(Moeda moeda) 
@@ -41,6 +41,10 @@ namespace Carteira_de_criptomoeda
         {
             moeda.Imprime();
             Console.WriteLine("quantidade: {0}", quantidade);
+        }
+
+        public static void ImprimeParMoedas()
+        {
             foreach (ParMoeda parMoeda in parMoedas)
             {
                 parMoeda.Imprime();
@@ -50,7 +54,7 @@ namespace Carteira_de_criptomoeda
         public void AdicionarParMoeda(Moeda moeda_cotacao, double valor)
         {
             ParMoeda novo_par_moeda = new ParMoeda(this.moeda, moeda_cotacao, valor);
-            this.parMoedas.Add(novo_par_moeda);
+            parMoedas.Add(novo_par_moeda);
         }
     }
 }
