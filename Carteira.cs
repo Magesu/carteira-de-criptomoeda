@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,44 +10,72 @@ namespace Carteira_de_criptomoeda
     {
         public String endereco { get; set; }
         public Cliente cliente { get; set; }
-        public List<ItemCarteira> itensCarteira; // WIP
+        public List<ItemCarteira> itensCarteira;
 
         public Carteira()
         {
             this.itensCarteira = new List<ItemCarteira>();
         }
 
-        public Carteira(String endereco, Cliente cliente, List<ItemCarteira> itensCarteira)
+        public Carteira(String endereco, Cliente cliente)
         {
             this.endereco = endereco;
             this.cliente = cliente;
             this.itensCarteira = new List<ItemCarteira>();
         }
 
-        public void AdicionarItemCarteira(ItemCarteira novo_item_carteira)
+        public void InsereItemCarteira(Moeda moeda, double quant)
         {
+            ItemCarteira novo_item_carteira = new ItemCarteira(moeda, quant);
             itensCarteira.Add(novo_item_carteira);
         }
 
-        public void InsereItemCarteira(Moeda moeda, double quant) //WIP
+        public void RemoveItemCarteira(Moeda moeda)
         {
-
+            var item_para_remover = itensCarteira.SingleOrDefault(r => r.moeda == moeda);
+            if (item_para_remover != null)
+            {
+                itensCarteira.Remove(item_para_remover);
+            }
         }
 
-        public void Imprime() // WIP
+        public void Imprime()
         {
-            Console.WriteLine("[endereco: {0}, cliente: {1}");
-
+            Console.WriteLine("Endereco: {0}", endereco);
+            Console.Write("Cliente: ");
+            cliente.Imprime();
+            Console.WriteLine("Itens da carteira:");
+            foreach(ItemCarteira item in itensCarteira)
+            {
+                item.Imprime();
+            }
+            Console.WriteLine("Par Moedas: ");
+            ItemCarteira.ImprimeParMoedas();
         }
 
-        public void Deposita(Moeda moeda, double quant) // WIP
+        public void Deposita(Moeda moeda, double quant)
         {
-
+            ItemCarteira item_carteira = itensCarteira.SingleOrDefault(r => r.moeda == moeda);
+            if(item_carteira != null)
+            {
+                item_carteira.quantidade += quant;
+            }
         }
 
-        public void Saca(Moeda moeda, double quant) // WIP
+        public void Saca(Moeda moeda, double quant)
         {
-
+            ItemCarteira item_carteira = itensCarteira.SingleOrDefault(r => r.moeda == moeda);
+            if (item_carteira != null)
+            {
+                if (item_carteira.quantidade > quant)
+                {
+                    item_carteira.quantidade -= quant;
+                }
+                else
+                {
+                    Console.WriteLine("Erro: quantidade insuficiente de moedas");
+                }
+            }
         }
     }
 }
