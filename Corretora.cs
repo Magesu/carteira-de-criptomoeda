@@ -17,7 +17,7 @@ namespace Carteira_de_criptomoeda
             this.carteiras = new List<Carteira>();
         }
 
-        public Corretora(int codigo, String nome, List<Carteira> carteiras)
+        public Corretora(int codigo, String nome)
         {
             this.codigo = codigo;
             this.nome = nome;
