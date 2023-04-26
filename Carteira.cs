@@ -50,7 +50,7 @@ namespace Carteira_de_criptomoeda
                 item.Imprime();
             }
             Console.WriteLine("Par Moedas: ");
-            ItemCarteira.ImprimeParMoedas();
+            MoedaDados.ImprimeParMoedas();
         }
 
         public void Deposita(Moeda moeda, double quant)
