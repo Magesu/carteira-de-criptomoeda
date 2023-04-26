@@ -15,13 +15,13 @@ internal class Program
         Moeda dolar = new Moeda("6789", "USD");
         Moeda real = new Moeda("6879", "BRL");
 
-        AplicacaoCriptomoedas.LerMoeda();
-        AplicacaoCriptomoedas.LerMoeda();
-        AplicacaoCriptomoedas.LerMoeda();
-        AplicacaoCriptomoedas.LerMoeda();
-        AplicacaoCriptomoedas.LerParMoeda();
+        AplicacaoCriptomoedas aplicacao = new AplicacaoCriptomoedas();
 
-        AplicacaoCriptomoedas.ImprimeMoedas();
-        AplicacaoCriptomoedas.ImprimeParMoedas();
+        aplicacao.CadastrarCorretora();
+        aplicacao.CadastrarCorretora();
+        aplicacao.CadastrarCliente();
+
+        aplicacao.ImprimeCorretoras();
+        aplicacao.ImprimeClientes();
     }
 }

@@ -12,11 +12,15 @@ namespace Carteira_de_criptomoeda
         public static List<ParMoeda> parMoedas = new List<ParMoeda>();
         public List<Corretora> corretoras;
         public List<Cliente> clientes;
+        public int novo_codigo_corretora { get; private set; }
+        public int novo_codigo_cliente { get; private set; }
 
         public AplicacaoCriptomoedas()
         {
             this.corretoras = new List<Corretora>();
             this.clientes = new List<Cliente>();
+            this.novo_codigo_cliente = 1;
+            this.novo_codigo_corretora = 1;
         }
 
         public static void AdicionarMoeda(string codigo, string nome)
@@ -68,7 +72,7 @@ namespace Carteira_de_criptomoeda
         public static void LerMoeda()
         {
             String codigo, nome;
-            Console.WriteLine("Inserir moeda: ");
+            Console.WriteLine("Inserir moeda ");
 
             do
             {
@@ -89,6 +93,8 @@ namespace Carteira_de_criptomoeda
         {
             Moeda moeda_base, moeda_cotacao;
             double valor;
+
+            Console.WriteLine("Inserir par de moedas");
 
             do
             {
@@ -118,6 +124,52 @@ namespace Carteira_de_criptomoeda
             valor = Double.Parse(Console.ReadLine());
 
             AdicionarParMoeda(moeda_base, moeda_cotacao, valor);
+        }
+
+        public void ImprimeCorretoras()
+        {
+            foreach(Corretora corretora in corretoras)
+            {
+                corretora.Imprime();
+            }
+        }
+
+        public void CadastrarCorretora()
+        {
+            String nome;
+
+            Console.WriteLine("Cadastrar corretora");
+            Console.WriteLine("Digite o nome da corretora:");
+            nome = Console.ReadLine();
+
+            corretoras.Add(new Corretora(novo_codigo_corretora,nome));
+            novo_codigo_corretora++;
+        }
+        
+        public void ImprimeClientes()
+        {
+            foreach (Cliente cliente in clientes)
+            {
+                cliente.Imprime();
+            }
+        }
+
+        public void CadastrarCliente()
+        {
+            String nome, email, celular, passhash;
+
+            Console.WriteLine("Cadastrar cliente");
+            Console.WriteLine("Digite o nome do cliente:");
+            nome = Console.ReadLine();
+            Console.WriteLine("Digite o email do cliente:");
+            email = Console.ReadLine();
+            Console.WriteLine("Digite o celular do cliente:");
+            celular = Console.ReadLine();
+            Console.WriteLine("Digite a senha do cliente:");
+            passhash = Console.ReadLine();
+
+            clientes.Add(new Cliente(novo_codigo_cliente, nome, email, celular, passhash));
+            novo_codigo_cliente++;
         }
     }
 }
