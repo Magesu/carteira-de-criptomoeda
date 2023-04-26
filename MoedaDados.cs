@@ -19,29 +19,40 @@ namespace Carteira_de_criptomoeda
             }
         }
 
+<<<<<<< Updated upstream
+        public static void AdicionarParMoeda(Moeda moeda_base, Moeda moeda_cotacao, double valor)
+        {
+            ParMoeda novo_par_moeda = new ParMoeda(moeda_base, moeda_cotacao, valor);
+            parMoedas.Add(novo_par_moeda);
+=======
+        public static void AdicionarMoeda(string codigo, string nome)
+        {
+            Moeda nova_moeda = new Moeda(codigo, nome);
+            moedas.Add(nova_moeda);
+>>>>>>> Stashed changes
+        }
+
+        public static void RemoverMoeda(Moeda moeda)
+        {
+            Moeda moeda_a_ser_removida = moedas.SingleOrDefault(r => r == moeda);
+            if (moeda_a_ser_removida != null)
+            {
+               moedas.Remove(moeda_a_ser_removida);
+            }
+        }
+
         public static void AdicionarParMoeda(Moeda moeda_base, Moeda moeda_cotacao, double valor)
         {
             ParMoeda novo_par_moeda = new ParMoeda(moeda_base, moeda_cotacao, valor);
             parMoedas.Add(novo_par_moeda);
         }
 
-        public static void RemoverMoeda()
+        public static void RemoverParMoeda(Moeda moeda_base, Moeda moeda_cotacao)
         {
-            String codigo;
-            Console.WriteLine("Remover moeda:");
-            Console.WriteLine("Digite o codigo da moeda a ser removida: ");
-            codigo = Console.ReadLine();
-            Moeda moeda_a_ser_removida = moedas.SingleOrDefault(r => r.Codigo == codigo);
-            if (moeda_a_ser_removida != null)
+            ParMoeda par_moeda_a_ser_removido = parMoedas.SingleOrDefault(r => r.moedaBase == moeda_base && r.moedaCotacao == moeda_cotacao);
+            if (par_moeda_a_ser_removido != null)
             {
-                String selecao;
-                Console.WriteLine("Remover essa moeda? (s/n)");
-                moeda_a_ser_removida.Imprime();
-                selecao = Console.ReadLine();
-                if(selecao == "s")
-                {
-                    moedas.Remove(moeda_a_ser_removida);
-                }
+                parMoedas.Remove(par_moeda_a_ser_removido);
             }
         }
 
