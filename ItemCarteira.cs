@@ -21,7 +21,7 @@ namespace Carteira_de_criptomoeda
 
         public double ObtemCotacaoMoeda(Moeda moeda_cotacao) 
         {
-            ParMoeda parMoeda = MoedaDados.parMoedas.SingleOrDefault(r => r.moedaBase == moeda && r.moedaCotacao == moeda_cotacao);
+            ParMoeda parMoeda = AplicacaoCriptomoedas.parMoedas.Find(r => r.moedaBase == moeda && r.moedaCotacao == moeda_cotacao);
             if(parMoeda != null) 
             {
                 return quantidade * parMoeda.valor;
