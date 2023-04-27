@@ -32,7 +32,7 @@ namespace Carteira_de_criptomoeda
 
         public void RemoveItemCarteira(Moeda moeda)
         {
-            var item_para_remover = itensCarteira.SingleOrDefault(r => r.moeda == moeda);
+            var item_para_remover = itensCarteira.Find(r => r.moeda == moeda);
             if (item_para_remover != null)
             {
                 itensCarteira.Remove(item_para_remover);
@@ -51,18 +51,18 @@ namespace Carteira_de_criptomoeda
             }
         }
 
-        public void Deposita(Moeda moeda, double quant)
+        public void Depositar(Moeda moeda, double quant)
         {
-            ItemCarteira item_carteira = itensCarteira.SingleOrDefault(r => r.moeda == moeda);
+            ItemCarteira item_carteira = itensCarteira.Find(r => r.moeda == moeda);
             if(item_carteira != null)
             {
                 item_carteira.quantidade += quant;
             }
         }
 
-        public void Saca(Moeda moeda, double quant)
+        public void Sacar(Moeda moeda, double quant)
         {
-            ItemCarteira item_carteira = itensCarteira.SingleOrDefault(r => r.moeda == moeda);
+            ItemCarteira item_carteira = itensCarteira.Find(r => r.moeda == moeda);
             if (item_carteira != null)
             {
                 if (item_carteira.quantidade > quant)

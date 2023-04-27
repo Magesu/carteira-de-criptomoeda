@@ -18,10 +18,12 @@ internal class Program
         AplicacaoCriptomoedas aplicacao = new AplicacaoCriptomoedas();
 
         aplicacao.CadastrarCorretora();
-        aplicacao.CadastrarCorretora();
         aplicacao.CadastrarCliente();
 
         aplicacao.ImprimeCorretoras();
         aplicacao.ImprimeClientes();
+
+        aplicacao.LogarCliente();
+        aplicacao.cliente_logado.Imprime();
     }
 }

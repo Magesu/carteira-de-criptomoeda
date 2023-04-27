@@ -14,6 +14,7 @@ namespace Carteira_de_criptomoeda
         public List<Cliente> clientes;
         public int novo_codigo_corretora { get; private set; }
         public int novo_codigo_cliente { get; private set; }
+        public Cliente? cliente_logado { get; private set; }
 
         public AplicacaoCriptomoedas()
         {
@@ -157,6 +158,9 @@ namespace Carteira_de_criptomoeda
         public void CadastrarCliente()
         {
             String nome, email, celular, passhash;
+            int codigo_corretora;
+            Corretora corretora_escolhida;
+            Cliente novo_cliente;
 
             Console.WriteLine("Cadastrar cliente");
             Console.WriteLine("Digite o nome do cliente:");
@@ -168,8 +172,70 @@ namespace Carteira_de_criptomoeda
             Console.WriteLine("Digite a senha do cliente:");
             passhash = Console.ReadLine();
 
-            clientes.Add(new Cliente(novo_codigo_cliente, nome, email, celular, passhash));
+            novo_cliente = new Cliente(novo_codigo_cliente, nome, email, celular, passhash);
             novo_codigo_cliente++;
+
+            clientes.Add(novo_cliente);
+
+            Console.WriteLine("Digite o codigo da corretora: ");
+            codigo_corretora = int.Parse(Console.ReadLine());
+
+            corretora_escolhida = corretoras.Find(r => r.codigo == codigo_corretora);
+
+            CadastrarCarteira(corretora_escolhida, novo_cliente);
+        }
+
+        public void CadastrarCarteira(Corretora corretora, Cliente cliente)
+        {
+            String endereco;
+            Carteira carteira;
+
+            Console.WriteLine("Cadastrar carteira");
+            Console.WriteLine("Digite o endereco da carteira: ");
+            endereco = Console.ReadLine();
+
+            carteira = new Carteira(endereco, cliente);
+            corretora.InsereCarteira(carteira);
+        }
+
+        public void LogarCliente()
+        {
+            String email, passhash;
+
+            Console.WriteLine("Digite o email do cliente: ");
+            email = Console.ReadLine();
+            Console.WriteLine("Digite a senha do cliente: ");
+            passhash = Console.ReadLine();
+
+            cliente_logado = clientes.Find(r => r.Email == email && r.PassHash == passhash);
+
+            if( cliente_logado == null )
+            {
+                Console.WriteLine("Cliente nao existe");
+            }
+        }
+
+        public void Deslogar()
+        {
+            cliente_logado = null;
+
+            Console.WriteLine("Cliente deslogado");
+        }
+
+        public void LerEDepositar(Corretora corretora)
+        {
+            String moeda_codigo;
+            Moeda moeda_a_depositar;
+            double quantidade_a_depositar;
+            Carteira carteira;
+
+            Console.WriteLine("Digite o codigo da moeda: ");
+            moeda_codigo = Console.ReadLine();
+            moeda_a_depositar = moedas.Find(r => r.Codigo == moeda_codigo);
+            Console.WriteLine("Digite a quantidade a ser depositada: ");
+            quantidade_a_depositar = double.Parse(Console.ReadLine());
+
+            
         }
     }
 }
