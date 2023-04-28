@@ -186,10 +186,15 @@ namespace Carteira_de_criptomoeda
 
         public void ImprimeCorretoras()
         {
+            Console.WriteLine("Corretoras");
+
             foreach (Corretora corretora in corretoras)
             {
                 corretora.Imprime();
             }
+
+            Console.WriteLine("Aperte qualquer botao para continuar...");
+            Console.ReadKey();
         }
 
         public void CadastrarCorretora()
@@ -437,9 +442,9 @@ namespace Carteira_de_criptomoeda
             Console.WriteLine("4 - Inserir par de moeda");
             Console.WriteLine("5 - Remover par de moeda WIP");
             Console.WriteLine("6 - Imprimir pares de moedas");
-            Console.WriteLine("7 - Inserir corretora WIP");
+            Console.WriteLine("7 - Inserir corretora");
             Console.WriteLine("8 - Remover corretora WIP");
-            Console.WriteLine("9 - Imprimir corretoras WIP");
+            Console.WriteLine("9 - Imprimir corretoras");
             Console.WriteLine("");
             Console.WriteLine("0 - Sair");
             Console.WriteLine("");
@@ -479,9 +484,7 @@ namespace Carteira_de_criptomoeda
                     ImprimeParMoedas();
                     break;
                 case ConsoleKey.D7:
-                    Console.WriteLine("WIP");
-                    Console.WriteLine("Aperte qualquer botao para continuar...");
-                    Console.ReadKey();
+                    CadastrarCorretora();
                     break;
                 case ConsoleKey.D8:
                     Console.WriteLine("WIP");
@@ -489,9 +492,7 @@ namespace Carteira_de_criptomoeda
                     Console.ReadKey();
                     break;
                 case ConsoleKey.D9:
-                    Console.WriteLine("WIP");
-                    Console.WriteLine("Aperte qualquer botao para continuar...");
-                    Console.ReadKey();
+                    ImprimeCorretoras();
                     break;
                 default:
                     Console.WriteLine("Acao invalida");
