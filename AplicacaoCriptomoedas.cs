@@ -410,10 +410,13 @@ namespace Carteira_de_criptomoeda
             Console.WriteLine("");
             Console.WriteLine("1 - Inserir moeda");
             Console.WriteLine("2 - Remover moeda WIP");
-            Console.WriteLine("3 - Inserir par de moeda WIP");
-            Console.WriteLine("4 - Remover par de moeda WIP");
-            Console.WriteLine("5 - Inserir corretora WIP");
-            Console.WriteLine("6 - Remover corretora WIP");
+            Console.WriteLine("3 - Imprimir moedas WIP");
+            Console.WriteLine("4 - Inserir par de moeda WIP");
+            Console.WriteLine("5 - Remover par de moeda WIP");
+            Console.WriteLine("6 - Imprimir par de moedas WIP");
+            Console.WriteLine("7 - Inserir corretora WIP");
+            Console.WriteLine("8 - Remover corretora WIP");
+            Console.WriteLine("9 - Imprimir corretoras WIP");
             Console.WriteLine("");
             Console.WriteLine("0 - Sair");
             Console.WriteLine("");
@@ -454,6 +457,21 @@ namespace Carteira_de_criptomoeda
                     Console.ReadKey();
                     break;
                 case "6":
+                    Console.WriteLine("WIP");
+                    Console.WriteLine("Aperte qualquer botao para continuar...");
+                    Console.ReadKey();
+                    break;
+                case "7":
+                    Console.WriteLine("WIP");
+                    Console.WriteLine("Aperte qualquer botao para continuar...");
+                    Console.ReadKey();
+                    break;
+                case "8":
+                    Console.WriteLine("WIP");
+                    Console.WriteLine("Aperte qualquer botao para continuar...");
+                    Console.ReadKey();
+                    break;
+                case "9":
                     Console.WriteLine("WIP");
                     Console.WriteLine("Aperte qualquer botao para continuar...");
                     Console.ReadKey();
