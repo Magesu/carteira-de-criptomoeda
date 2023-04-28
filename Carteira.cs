@@ -32,7 +32,7 @@ namespace Carteira_de_criptomoeda
 
         public void RemoveItemCarteira(Moeda moeda)
         {
-            var item_para_remover = itensCarteira.SingleOrDefault(r => r.moeda == moeda);
+            var item_para_remover = itensCarteira.Find(r => r.moeda == moeda);
             if (item_para_remover != null)
             {
                 itensCarteira.Remove(item_para_remover);
@@ -49,33 +49,39 @@ namespace Carteira_de_criptomoeda
             {
                 item.Imprime();
             }
-            Console.WriteLine("Par Moedas: ");
-            ItemCarteira.ImprimeParMoedas();
         }
 
-        public void Deposita(Moeda moeda, double quant)
+        public void Depositar(Moeda moeda, double quant)
         {
-            ItemCarteira item_carteira = itensCarteira.SingleOrDefault(r => r.moeda == moeda);
+            ItemCarteira item_carteira = itensCarteira.Find(r => r.moeda == moeda);
+
             if(item_carteira != null)
             {
                 item_carteira.quantidade += quant;
             }
+            else
+            {
+                InsereItemCarteira(moeda, quant);
+            }
         }
 
-        public void Saca(Moeda moeda, double quant)
+        public void Sacar(Moeda moeda, double quant)
         {
-            ItemCarteira item_carteira = itensCarteira.SingleOrDefault(r => r.moeda == moeda);
-            if (item_carteira != null)
+            ItemCarteira item_carteira = itensCarteira.Find(r => r.moeda == moeda);
+
+            if(item_carteira == null)
             {
-                if (item_carteira.quantidade > quant)
-                {
-                    item_carteira.quantidade -= quant;
-                }
-                else
-                {
-                    Console.WriteLine("Erro: quantidade insuficiente de moedas");
-                }
+                Console.WriteLine("Item nao existe");
+                return;
             }
+
+            if(quant > item_carteira.quantidade)
+            {
+                Console.WriteLine("Erro: quantidade insuficiente de moedas");
+                return;
+            }
+
+            item_carteira.quantidade -= quant;
         }
     }
 }
