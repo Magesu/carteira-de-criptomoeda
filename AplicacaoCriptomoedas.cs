@@ -125,39 +125,53 @@ namespace Carteira_de_criptomoeda
 
         public static void LerParMoeda()
         {
+            ParMoeda novo_par_moeda;
             Moeda moeda_base, moeda_cotacao;
             double valor;
 
+            Console.Clear();
             Console.WriteLine("Inserir par de moedas");
 
-            do
-            {
-                String codigo;
-                Console.WriteLine("Inserir codigo da moeda base: ");
-                codigo = Console.ReadLine();
-                moeda_base = moedas.Find(r => r.Codigo == codigo);
-                if (moeda_base == null)
-                {
-                    Console.WriteLine("Moeda nao existe");
-                }
-            } while (moeda_base == null);
+            String codigo_moeda_base;
+            Console.WriteLine("Inserir codigo da moeda base: ");
+            codigo_moeda_base = Console.ReadLine();
+            moeda_base = moedas.Find(r => r.Codigo == codigo_moeda_base);
 
-            do
+            if (moeda_base == null)
             {
-                String codigo;
-                Console.WriteLine("Digite o codigo da moeda de cotacao: ");
-                codigo = Console.ReadLine();
-                moeda_cotacao = moedas.Find(r => r.Codigo == codigo);
-                if (moeda_cotacao == null)
-                {
-                    Console.WriteLine("Moeda nao existe");
-                }
-            } while (moeda_cotacao == null);
+                Console.Clear();
+                Console.WriteLine("Moeda nao existe");
+                Console.WriteLine("Aperte qualquer botao para continuar...");
+                Console.ReadKey();
+                return;
+            }
+
+            
+            String codigo_moeda_cotacao;
+            Console.WriteLine("Digite o codigo da moeda de cotacao: ");
+            codigo_moeda_cotacao = Console.ReadLine();
+            moeda_cotacao = moedas.Find(r => r.Codigo == codigo_moeda_cotacao);
+
+            if (moeda_cotacao == null)
+            {
+                Console.Clear();
+                Console.WriteLine("Moeda nao existe");
+                Console.WriteLine("Aperte qualquer botao para continuar...");
+                Console.ReadKey();
+                return;
+            }
 
             Console.WriteLine("Digite o valor: ");
             valor = Double.Parse(Console.ReadLine());
 
+            novo_par_moeda = new ParMoeda(moeda_base, moeda_cotacao, valor);
             AdicionarParMoeda(moeda_base, moeda_cotacao, valor);
+
+            Console.Clear();
+            Console.WriteLine("Par inserido: ");
+            novo_par_moeda.Imprime();
+            Console.WriteLine("Aperte qualquer botao para continuar...");
+            Console.ReadKey();
         }
 
         public void ImprimeCorretoras()
@@ -447,9 +461,7 @@ namespace Carteira_de_criptomoeda
                     Console.ReadKey();
                     break;
                 case "4":
-                    Console.WriteLine("WIP");
-                    Console.WriteLine("Aperte qualquer botao para continuar...");
-                    Console.ReadKey();
+                    LerParMoeda();
                     break;
                 case "5":
                     Console.WriteLine("WIP");
