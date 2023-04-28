@@ -18,16 +18,6 @@ internal class Program
         aplicacao.clientes.Add(new Cliente(0, "Bob", "bob@gmail.com", "123456789123", "123"));
         aplicacao.corretoras[0].InsereCarteira(new Carteira("dhsjakhjdksahjd", aplicacao.clientes[0]));
 
-        aplicacao.ImprimeCorretoras();
-        aplicacao.ImprimeClientes();
-
-        aplicacao.LogarCliente();
-        aplicacao.CadastrarCarteira();
-        aplicacao.SelecionarCarteira();
-        aplicacao.carteira_selecionada.Imprime();
-        aplicacao.LerEDepositar();
-        aplicacao.carteira_selecionada.Imprime();
-        aplicacao.LerESacar();
-        aplicacao.carteira_selecionada.Imprime();
+        aplicacao.Menu();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -213,6 +214,7 @@ namespace Carteira_de_criptomoeda
         {
             String email, password;
 
+            Console.WriteLine("Fazer login");
             Console.WriteLine("Digite o email do cliente: ");
             email = Console.ReadLine();
             Console.WriteLine("Digite a senha do cliente: ");
@@ -325,6 +327,45 @@ namespace Carteira_de_criptomoeda
             quantidade_a_sacar = double.Parse(Console.ReadLine());
 
             carteira_selecionada.Sacar(moeda_a_sacar, quantidade_a_sacar);
+        }
+
+        public void Menu()
+        {
+            String sel;
+
+            Console.Clear();
+            Console.WriteLine("Menu");
+            Console.WriteLine("");
+            Console.WriteLine("1 - Admin");
+            Console.WriteLine("2 - Cliente");
+            Console.WriteLine("");
+            Console.WriteLine("0 - Sair");
+            Console.WriteLine("");
+            Console.WriteLine("Digite para escolher uma acao");
+            sel = Console.ReadLine();
+
+            Console.Clear();
+
+            switch (sel)
+            {
+                case "0":
+                    Console.WriteLine("Aplicacao terminada");
+                    return;
+                    break;
+                case "1":
+                    // Menu do Admin
+                    break;
+                case "2":
+                    // Menu do cliente
+                    break;
+                default:
+                    Console.WriteLine("Acao invalida");
+                    Console.WriteLine("Aperte qualquer botao para continuar...");
+                    Console.ReadKey();
+                    break;
+            }
+
+            Menu();
         }
     }
 }
