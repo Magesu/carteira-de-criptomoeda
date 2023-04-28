@@ -15,6 +15,7 @@ namespace Carteira_de_criptomoeda
         public int novo_codigo_corretora { get; private set; }
         public int novo_codigo_cliente { get; private set; }
         public Cliente? cliente_logado { get; private set; }
+        public Carteira? carteira_selecionada { get; private set; }
 
         public AplicacaoCriptomoedas()
         {
@@ -158,8 +159,6 @@ namespace Carteira_de_criptomoeda
         public void CadastrarCliente()
         {
             String nome, email, celular, passhash;
-            int codigo_corretora;
-            Corretora corretora_escolhida;
             Cliente novo_cliente;
 
             Console.WriteLine("Cadastrar cliente");
@@ -177,37 +176,47 @@ namespace Carteira_de_criptomoeda
 
             clientes.Add(novo_cliente);
 
+            CadastrarCarteira(novo_cliente);
+        }
+
+        public void CadastrarCarteira()
+        {
+            if(cliente_logado != null)
+            {
+                CadastrarCarteira(cliente_logado);
+            }
+        }
+
+        public void CadastrarCarteira(Cliente cliente)
+        {
+            String endereco;
+            Carteira carteira;
+            int codigo_corretora;
+            Corretora corretora_escolhida;
+
+            Console.WriteLine("Cadastrar carteira");
+
             Console.WriteLine("Digite o codigo da corretora: ");
             codigo_corretora = int.Parse(Console.ReadLine());
 
             corretora_escolhida = corretoras.Find(r => r.codigo == codigo_corretora);
-
-            CadastrarCarteira(corretora_escolhida, novo_cliente);
-        }
-
-        public void CadastrarCarteira(Corretora corretora, Cliente cliente)
-        {
-            String endereco;
-            Carteira carteira;
-
-            Console.WriteLine("Cadastrar carteira");
             Console.WriteLine("Digite o endereco da carteira: ");
             endereco = Console.ReadLine();
 
             carteira = new Carteira(endereco, cliente);
-            corretora.InsereCarteira(carteira);
+            corretora_escolhida.InsereCarteira(carteira);
         }
 
         public void LogarCliente()
         {
-            String email, passhash;
+            String email, password;
 
             Console.WriteLine("Digite o email do cliente: ");
             email = Console.ReadLine();
             Console.WriteLine("Digite a senha do cliente: ");
-            passhash = Console.ReadLine();
+            password = Console.ReadLine();
 
-            cliente_logado = clientes.Find(r => r.Email == email && r.PassHash == passhash);
+            cliente_logado = clientes.Find(r => r.Email == email && r.PassHash == password);
 
             if( cliente_logado == null )
             {
@@ -221,13 +230,62 @@ namespace Carteira_de_criptomoeda
 
             Console.WriteLine("Cliente deslogado");
         }
+        
+        public void SelecionarCarteira()
+        {
+            if(cliente_logado != null)
+            {
+                int codigo_corretora;
+                Corretora corretora;
+                List<Carteira> carteiras_encontradas = new List<Carteira>();
 
-        public void LerEDepositar(Corretora corretora)
+                Console.WriteLine("Digite o codigo da corretora: ");
+                codigo_corretora = int.Parse(Console.ReadLine());
+
+                corretora = corretoras.Find(r => r.codigo == codigo_corretora);
+
+                if (corretora != null)
+                {
+                    carteiras_encontradas = corretora.carteiras.FindAll(r => r.cliente == cliente_logado);
+
+                    if(carteiras_encontradas.Count() == 0 )
+                    {
+                        Console.WriteLine("Nenhuma carteira encontrada");
+                    }
+                    else if(carteiras_encontradas.Count() == 1)
+                    {
+                        carteira_selecionada = carteiras_encontradas[0];
+                    }
+                    else
+                    {
+                        foreach(Carteira carteira in carteiras_encontradas)
+                        {
+                            carteira.Imprime();
+                        }
+
+                        int sel;
+
+                        do
+                        {
+                            Console.WriteLine("Digite o index da carteira escolhida:");
+                            sel = int.Parse(Console.ReadLine());
+                        } while (sel < 0 && sel >= carteiras_encontradas.Count());
+
+                        carteira_selecionada = carteiras_encontradas[sel];
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Corretora nao encontrada");
+                }
+            }
+        }
+
+        public void LerEDepositar()
         {
             String moeda_codigo;
             Moeda moeda_a_depositar;
             double quantidade_a_depositar;
-            Carteira carteira;
 
             Console.WriteLine("Digite o codigo da moeda: ");
             moeda_codigo = Console.ReadLine();
@@ -235,7 +293,22 @@ namespace Carteira_de_criptomoeda
             Console.WriteLine("Digite a quantidade a ser depositada: ");
             quantidade_a_depositar = double.Parse(Console.ReadLine());
 
-            
+            carteira_selecionada.Depositar(moeda_a_depositar, quantidade_a_depositar);
+        }
+        
+        public void LerESacar()
+        {
+            String moeda_codigo;
+            Moeda moeda_a_sacar;
+            double quantidade_a_sacar;
+
+            Console.WriteLine("Digite o codigo da moeda: ");
+            moeda_codigo = Console.ReadLine();
+            moeda_a_sacar = moedas.Find(r => r.Codigo == moeda_codigo);
+            Console.WriteLine("Digite a quantidade a ser sacada: ");
+            quantidade_a_sacar = double.Parse(Console.ReadLine());
+
+            carteira_selecionada.Sacar(moeda_a_sacar, quantidade_a_sacar);
         }
     }
 }

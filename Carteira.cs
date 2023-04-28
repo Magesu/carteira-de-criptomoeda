@@ -58,6 +58,10 @@ namespace Carteira_de_criptomoeda
             {
                 item_carteira.quantidade += quant;
             }
+            else
+            {
+                InsereItemCarteira(moeda, quant);
+            }
         }
 
         public void Sacar(Moeda moeda, double quant)
@@ -73,6 +77,10 @@ namespace Carteira_de_criptomoeda
                 {
                     Console.WriteLine("Erro: quantidade insuficiente de moedas");
                 }
+            }
+            else
+            {
+                Console.WriteLine("Item nao existe");
             }
         }
     }
