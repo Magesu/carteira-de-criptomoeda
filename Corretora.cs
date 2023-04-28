@@ -31,7 +31,7 @@ namespace Carteira_de_criptomoeda
 
         public void RemoveCarteira(String endereco)
         {
-            var carteira_para_remover = carteiras.SingleOrDefault(r => r.endereco == endereco);
+            var carteira_para_remover = carteiras.Find(r => r.endereco == endereco);
             if (carteira_para_remover != null)
             {
                 carteiras.Remove(carteira_para_remover);

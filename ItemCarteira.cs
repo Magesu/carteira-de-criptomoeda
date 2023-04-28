@@ -10,23 +10,18 @@ namespace Carteira_de_criptomoeda
     {
         public Moeda moeda { get; set; }
         public double quantidade { get; set; }
-        public static List<ParMoeda> parMoedas;
 
-        public ItemCarteira() 
-        {
-            parMoedas = new List<ParMoeda>();
-        }
+        public ItemCarteira() { }
 
         public ItemCarteira(Moeda moeda, double quantidade)
         {
             this.moeda = moeda;
             this.quantidade = quantidade;
-            parMoedas = new List<ParMoeda>();
         }
 
-        public double ObtemCotacaoMoeda(Moeda moeda) 
+        public double ObtemCotacaoMoeda(Moeda moeda_cotacao) 
         {
-            ParMoeda parMoeda = parMoedas.SingleOrDefault(r => r.moedaCotacao == moeda);
+            ParMoeda parMoeda = AplicacaoCriptomoedas.parMoedas.Find(r => r.moedaBase == moeda && r.moedaCotacao == moeda_cotacao);
             if(parMoeda != null) 
             {
                 return quantidade * parMoeda.valor;
@@ -41,29 +36,6 @@ namespace Carteira_de_criptomoeda
         {
             moeda.Imprime();
             Console.WriteLine("quantidade: {0}", quantidade);
-        }
-
-        public static void ImprimeParMoedas()
-        {
-            foreach (ParMoeda parMoeda in parMoedas)
-            {
-                parMoeda.Imprime();
-            }
-        }
-
-        public static void AdicionarParMoeda(Moeda moeda_base, Moeda moeda_cotacao, double valor)
-        {
-            ParMoeda novo_par_moeda = new ParMoeda(moeda_base, moeda_cotacao, valor);
-            parMoedas.Add(novo_par_moeda);
-        }
-
-        public static void RemoverParMoeda(Moeda moeda_base, Moeda moeda_cotacao)
-        {
-            ParMoeda par_moeda_a_ser_removido = parMoedas.SingleOrDefault(r => r.moedaBase == moeda_base && r.moedaCotacao == moeda_cotacao);
-            if(par_moeda_a_ser_removido != null)
-            {
-                parMoedas.Remove(par_moeda_a_ser_removido);
-            }
         }
     }
 }
