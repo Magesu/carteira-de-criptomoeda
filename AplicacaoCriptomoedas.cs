@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -31,7 +31,7 @@ namespace Carteira_de_criptomoeda
             Moeda nova_moeda = new Moeda(codigo, nome);
             moedas.Add(nova_moeda);
         }
-        
+
         public static void AdicionarMoeda(Moeda nova_moeda)
         {
             moedas.Add(nova_moeda);
@@ -176,7 +176,7 @@ namespace Carteira_de_criptomoeda
 
         public void ImprimeCorretoras()
         {
-            foreach(Corretora corretora in corretoras)
+            foreach (Corretora corretora in corretoras)
             {
                 corretora.Imprime();
             }
@@ -189,7 +189,6 @@ namespace Carteira_de_criptomoeda
             Console.WriteLine("Cadastrar corretora");
             Console.WriteLine("Digite o nome da corretora:");
             nome = Console.ReadLine();
-
             corretoras.Add(new Corretora(novo_codigo_corretora,nome));
             novo_codigo_corretora++;
         }
@@ -227,7 +226,7 @@ namespace Carteira_de_criptomoeda
 
         public void CadastrarCarteira()
         {
-            if(cliente_logado == null)
+            if (cliente_logado == null)
             {
                 return;
             }
@@ -266,8 +265,8 @@ namespace Carteira_de_criptomoeda
             password = Console.ReadLine();
 
             cliente_logado = clientes.Find(r => r.Email == email && r.PassHash == password);
-
-            if( cliente_logado == null )
+            
+            if(cliente_logado == null)
             {
                 Console.WriteLine("Cliente nao existe");
             }
@@ -282,12 +281,12 @@ namespace Carteira_de_criptomoeda
         
         public void SelecionarCarteira()
         {
-            if(cliente_logado == null)
+            if (cliente_logado == null)
             {
                 Console.WriteLine("Nenhum cliente esta logado");
                 return;
             }
-            
+
             int codigo_corretora;
             Corretora corretora;
             List<Carteira> carteiras_encontradas = new List<Carteira>();
@@ -315,7 +314,7 @@ namespace Carteira_de_criptomoeda
             }
             else
             {
-                foreach(Carteira carteira in carteiras_encontradas)
+                foreach (Carteira carteira in carteiras_encontradas)
                 {
                     carteira.Imprime();
                 }
@@ -334,7 +333,7 @@ namespace Carteira_de_criptomoeda
 
         public void LerEDepositar()
         {
-            if(cliente_logado == null || carteira_selecionada == null)
+            if (cliente_logado == null || carteira_selecionada == null)
             {
                 Console.WriteLine("Nenhum cliente logado ou nenhuma carteira selecionada");
                 return;
@@ -352,7 +351,7 @@ namespace Carteira_de_criptomoeda
 
             carteira_selecionada.Depositar(moeda_a_depositar, quantidade_a_depositar);
         }
-        
+
         public void LerESacar()
         {
             if (cliente_logado == null || carteira_selecionada == null)
@@ -376,7 +375,7 @@ namespace Carteira_de_criptomoeda
 
         public void Menu()
         {
-            String sel_m;
+            ConsoleKeyInfo sel_m;
 
             Console.Clear();
             Console.WriteLine("Menu");
@@ -387,20 +386,20 @@ namespace Carteira_de_criptomoeda
             Console.WriteLine("0 - Sair");
             Console.WriteLine("");
             Console.WriteLine("Digite para escolher uma acao");
-            sel_m = Console.ReadLine();
+
+            sel_m = Console.ReadKey();
 
             Console.Clear();
 
-            switch (sel_m)
+            switch (sel_m.Key)
             {
-                case "0":
+                case ConsoleKey.D0:
                     Console.WriteLine("Aplicacao terminada");
                     return;
-                    break;
-                case "1":
+                case ConsoleKey.D1:
                     MenuAdmin();
                     break;
-                case "2":
+                case ConsoleKey.D2:
                     Console.WriteLine("Menu do cliente WIP");
                     Console.WriteLine("Aperte qualquer botao para continuar...");
                     Console.ReadKey();
@@ -417,7 +416,7 @@ namespace Carteira_de_criptomoeda
 
         public void MenuAdmin()
         {
-            String sel_a;
+            ConsoleKeyInfo sel_a;
 
             Console.Clear();
             Console.WriteLine("Menu de admin");
@@ -435,55 +434,55 @@ namespace Carteira_de_criptomoeda
             Console.WriteLine("0 - Sair");
             Console.WriteLine("");
             Console.WriteLine("Digite para escolher uma acao");
-            sel_a = Console.ReadLine();
+
+            sel_a = Console.ReadKey();
 
             Console.Clear();
 
-            switch (sel_a)
+            switch (sel_a.Key)
             {
-                case "0":
+                case ConsoleKey.D0:
                     Console.WriteLine("Saindo do menu de admin");
                     Console.WriteLine("Aperte qualquer botao para continuar...");
                     Console.ReadKey();
                     return;
-                    break;
-                case "1":
+                case ConsoleKey.D1:
                     LerMoeda();
                     break;
-                case "2":
+                case ConsoleKey.D2:
                     Console.WriteLine("WIP");
                     Console.WriteLine("Aperte qualquer botao para continuar...");
                     Console.ReadKey();
                     break;
-                case "3":
+                case ConsoleKey.D3:
                     Console.WriteLine("WIP");
                     Console.WriteLine("Aperte qualquer botao para continuar...");
                     Console.ReadKey();
                     break;
-                case "4":
+                case ConsoleKey.D4:
                     LerParMoeda();
                     break;
-                case "5":
+                case ConsoleKey.D5:
                     Console.WriteLine("WIP");
                     Console.WriteLine("Aperte qualquer botao para continuar...");
                     Console.ReadKey();
                     break;
-                case "6":
+                case ConsoleKey.D6:
                     Console.WriteLine("WIP");
                     Console.WriteLine("Aperte qualquer botao para continuar...");
                     Console.ReadKey();
                     break;
-                case "7":
+                case ConsoleKey.D7:
                     Console.WriteLine("WIP");
                     Console.WriteLine("Aperte qualquer botao para continuar...");
                     Console.ReadKey();
                     break;
-                case "8":
+                case ConsoleKey.D8:
                     Console.WriteLine("WIP");
                     Console.WriteLine("Aperte qualquer botao para continuar...");
                     Console.ReadKey();
                     break;
-                case "9":
+                case ConsoleKey.D9:
                     Console.WriteLine("WIP");
                     Console.WriteLine("Aperte qualquer botao para continuar...");
                     Console.ReadKey();
