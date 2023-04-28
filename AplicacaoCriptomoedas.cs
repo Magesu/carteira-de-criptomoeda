@@ -291,7 +291,6 @@ namespace Carteira_de_criptomoeda
             }
 
             MenuCliente();
-            
         }
 
         public void Deslogar()
@@ -306,6 +305,8 @@ namespace Carteira_de_criptomoeda
             if (cliente_logado == null)
             {
                 Console.WriteLine("Nenhum cliente esta logado");
+                Console.WriteLine("Aperte qualquer tecla para continuar...");
+                Console.ReadKey();
                 return;
             }
 
@@ -318,11 +319,23 @@ namespace Carteira_de_criptomoeda
             Console.WriteLine("Digite o codigo da corretora: ");
             codigo_corretora = int.Parse(Console.ReadLine());
 
+            if (codigo_corretora < 0 || codigo_corretora > corretoras.Count())
+            {
+                Console.Clear();
+                Console.WriteLine("Codigo invalido");
+                Console.WriteLine("Aperte qualquer tecla para continuar...");
+                Console.ReadKey();
+                return;
+            }
+
             corretora = corretoras.Find(r => r.codigo == codigo_corretora);
 
             if (corretora == null)
             {
+                Console.Clear();
                 Console.WriteLine("Corretora nao encontrada");
+                Console.WriteLine("Aperte qualquer tecla para continuar...");
+                Console.ReadKey();
                 return;
             }
 
@@ -330,7 +343,10 @@ namespace Carteira_de_criptomoeda
 
             if(carteiras_encontradas.Count() == 0 )
             {
+                Console.Clear();
                 Console.WriteLine("Nenhuma carteira encontrada");
+                Console.WriteLine("Aperte qualquer tecla para continuar...");
+                Console.ReadKey();
             }
             else if(carteiras_encontradas.Count() == 1)
             {
@@ -556,8 +572,8 @@ namespace Carteira_de_criptomoeda
         {
             ConsoleKeyInfo sel_c;
 
-            if (carteira_selecionada == null)
-            {
+            while(carteira_selecionada == null) 
+            { 
                 SelecionarCarteira();
             }
 
