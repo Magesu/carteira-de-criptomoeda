@@ -54,6 +54,7 @@ namespace Carteira_de_criptomoeda
         public void Depositar(Moeda moeda, double quant)
         {
             ItemCarteira item_carteira = itensCarteira.Find(r => r.moeda == moeda);
+
             if(item_carteira != null)
             {
                 item_carteira.quantidade += quant;
@@ -67,21 +68,20 @@ namespace Carteira_de_criptomoeda
         public void Sacar(Moeda moeda, double quant)
         {
             ItemCarteira item_carteira = itensCarteira.Find(r => r.moeda == moeda);
-            if (item_carteira != null)
-            {
-                if (item_carteira.quantidade > quant)
-                {
-                    item_carteira.quantidade -= quant;
-                }
-                else
-                {
-                    Console.WriteLine("Erro: quantidade insuficiente de moedas");
-                }
-            }
-            else
+
+            if(item_carteira == null)
             {
                 Console.WriteLine("Item nao existe");
+                return;
             }
+
+            if(quant > item_carteira.quantidade)
+            {
+                Console.WriteLine("Erro: quantidade insuficiente de moedas");
+                return;
+            }
+
+            item_carteira.quantidade -= quant;
         }
     }
 }

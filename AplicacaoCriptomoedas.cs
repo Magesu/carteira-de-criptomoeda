@@ -181,10 +181,12 @@ namespace Carteira_de_criptomoeda
 
         public void CadastrarCarteira()
         {
-            if(cliente_logado != null)
+            if(cliente_logado == null)
             {
-                CadastrarCarteira(cliente_logado);
+                return;
             }
+
+            CadastrarCarteira(cliente_logado);
         }
 
         public void CadastrarCarteira(Cliente cliente)
@@ -233,56 +235,64 @@ namespace Carteira_de_criptomoeda
         
         public void SelecionarCarteira()
         {
-            if(cliente_logado != null)
+            if(cliente_logado == null)
             {
-                int codigo_corretora;
-                Corretora corretora;
-                List<Carteira> carteiras_encontradas = new List<Carteira>();
+                Console.WriteLine("Nenhum cliente esta logado");
+                return;
+            }
+            
+            int codigo_corretora;
+            Corretora corretora;
+            List<Carteira> carteiras_encontradas = new List<Carteira>();
 
-                Console.WriteLine("Digite o codigo da corretora: ");
-                codigo_corretora = int.Parse(Console.ReadLine());
+            Console.WriteLine("Digite o codigo da corretora: ");
+            codigo_corretora = int.Parse(Console.ReadLine());
 
-                corretora = corretoras.Find(r => r.codigo == codigo_corretora);
+            corretora = corretoras.Find(r => r.codigo == codigo_corretora);
 
-                if (corretora != null)
+            if (corretora == null)
+            {
+                Console.WriteLine("Corretora nao encontrada");
+                return;
+            }
+
+            carteiras_encontradas = corretora.carteiras.FindAll(r => r.cliente == cliente_logado);
+
+            if(carteiras_encontradas.Count() == 0 )
+            {
+                Console.WriteLine("Nenhuma carteira encontrada");
+            }
+            else if(carteiras_encontradas.Count() == 1)
+            {
+                carteira_selecionada = carteiras_encontradas[0];
+            }
+            else
+            {
+                foreach(Carteira carteira in carteiras_encontradas)
                 {
-                    carteiras_encontradas = corretora.carteiras.FindAll(r => r.cliente == cliente_logado);
-
-                    if(carteiras_encontradas.Count() == 0 )
-                    {
-                        Console.WriteLine("Nenhuma carteira encontrada");
-                    }
-                    else if(carteiras_encontradas.Count() == 1)
-                    {
-                        carteira_selecionada = carteiras_encontradas[0];
-                    }
-                    else
-                    {
-                        foreach(Carteira carteira in carteiras_encontradas)
-                        {
-                            carteira.Imprime();
-                        }
-
-                        int sel;
-
-                        do
-                        {
-                            Console.WriteLine("Digite o index da carteira escolhida:");
-                            sel = int.Parse(Console.ReadLine());
-                        } while (sel < 0 && sel >= carteiras_encontradas.Count());
-
-                        carteira_selecionada = carteiras_encontradas[sel];
-                    }
+                    carteira.Imprime();
                 }
-                else
+
+                int sel;
+
+                do
                 {
-                    Console.WriteLine("Corretora nao encontrada");
-                }
+                    Console.WriteLine("Digite o index da carteira escolhida:");
+                    sel = int.Parse(Console.ReadLine());
+                } while (sel < 0 && sel >= carteiras_encontradas.Count());
+
+                carteira_selecionada = carteiras_encontradas[sel];
             }
         }
 
         public void LerEDepositar()
         {
+            if(cliente_logado == null || carteira_selecionada == null)
+            {
+                Console.WriteLine("Nenhum cliente logado ou nenhuma carteira selecionada");
+                return;
+            }
+
             String moeda_codigo;
             Moeda moeda_a_depositar;
             double quantidade_a_depositar;
@@ -298,6 +308,12 @@ namespace Carteira_de_criptomoeda
         
         public void LerESacar()
         {
+            if (cliente_logado == null || carteira_selecionada == null)
+            {
+                Console.WriteLine("Nenhum cliente logado ou nenhuma carteira selecionada");
+                return;
+            }
+
             String moeda_codigo;
             Moeda moeda_a_sacar;
             double quantidade_a_sacar;

@@ -22,6 +22,7 @@ internal class Program
         aplicacao.ImprimeClientes();
 
         aplicacao.LogarCliente();
+        aplicacao.CadastrarCarteira();
         aplicacao.SelecionarCarteira();
         aplicacao.carteira_selecionada.Imprime();
         aplicacao.LerEDepositar();
