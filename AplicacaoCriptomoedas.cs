@@ -256,6 +256,7 @@ namespace Carteira_de_criptomoeda
             int codigo_corretora;
             Corretora corretora_escolhida;
 
+            Console.Clear();
             Console.WriteLine("Cadastrar carteira");
 
             Console.WriteLine("Digite o codigo da corretora: ");
@@ -284,7 +285,13 @@ namespace Carteira_de_criptomoeda
             if(cliente_logado == null)
             {
                 Console.WriteLine("Cliente nao existe");
+                Console.WriteLine("Aperte qualquer botao para continuar");
+                Console.ReadKey();
+                return;
             }
+
+            MenuCliente();
+            
         }
 
         public void Deslogar()
@@ -306,6 +313,8 @@ namespace Carteira_de_criptomoeda
             Corretora corretora;
             List<Carteira> carteiras_encontradas = new List<Carteira>();
 
+            Console.Clear();
+            Console.WriteLine("Selecionar carteira ");
             Console.WriteLine("Digite o codigo da corretora: ");
             codigo_corretora = int.Parse(Console.ReadLine());
 
@@ -541,6 +550,69 @@ namespace Carteira_de_criptomoeda
             }
 
             MenuLogin();
+        }
+
+        public void MenuCliente()
+        {
+            ConsoleKeyInfo sel_c;
+
+            if (carteira_selecionada == null)
+            {
+                SelecionarCarteira();
+            }
+
+            Console.Clear();
+            Console.WriteLine("Menu do cliente");
+            Console.WriteLine("");
+            Console.WriteLine("1 - Imprimir carteira");
+            Console.WriteLine("2 - Depositar");
+            Console.WriteLine("3 - Sacar");
+            Console.WriteLine("4 - Selecionar outra carteira");
+            Console.WriteLine("5 - Criar outra carteira");
+            Console.WriteLine("");
+            Console.WriteLine("0 - Deslogar");
+            Console.WriteLine("");
+            Console.WriteLine("Digite para escolher uma acao");
+
+            sel_c = Console.ReadKey();
+
+            Console.Clear();
+
+            switch (sel_c.Key)
+            {
+                case ConsoleKey.D0:
+                    Deslogar();
+                    carteira_selecionada = null;
+                    Console.WriteLine("Saindo do menu de cliente...");
+                    Console.WriteLine("Aperte qualquer botao para continuar...");
+                    Console.ReadKey();
+                    return;
+                case ConsoleKey.D1:
+                    Console.WriteLine("Carteira selecionada");
+                    carteira_selecionada.Imprime();
+                    Console.WriteLine("Aperte qualquer botao para continuar...");
+                    Console.ReadKey();
+                    break;
+                case ConsoleKey.D2:
+                    LerEDepositar();
+                    break;
+                case ConsoleKey.D3:
+                    LerESacar();
+                    break;
+                case ConsoleKey.D4:
+                    SelecionarCarteira();
+                    break;
+                case ConsoleKey.D5:
+                    CadastrarCarteira();
+                    break;
+                default:
+                    Console.WriteLine("Acao invalida");
+                    Console.WriteLine("Aperte qualquer botao para continuar...");
+                    Console.ReadKey();
+                    break;
+            }
+
+            MenuCliente();
         }
     }
 }
