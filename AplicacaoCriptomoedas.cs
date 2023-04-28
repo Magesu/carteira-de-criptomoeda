@@ -415,9 +415,7 @@ namespace Carteira_de_criptomoeda
                     MenuAdmin();
                     break;
                 case ConsoleKey.D2:
-                    Console.WriteLine("Menu do cliente WIP");
-                    Console.WriteLine("Aperte qualquer botao para continuar...");
-                    Console.ReadKey();
+                    MenuLogin();
                     break;
                 default:
                     Console.WriteLine("Acao invalida");
@@ -434,7 +432,7 @@ namespace Carteira_de_criptomoeda
             ConsoleKeyInfo sel_a;
 
             Console.Clear();
-            Console.WriteLine("Menu de admin");
+            Console.WriteLine("Menu do admin");
             Console.WriteLine("");
             Console.WriteLine("1 - Inserir moeda");
             Console.WriteLine("2 - Remover moeda WIP");
@@ -442,7 +440,7 @@ namespace Carteira_de_criptomoeda
             Console.WriteLine("4 - Inserir par de moeda");
             Console.WriteLine("5 - Remover par de moeda WIP");
             Console.WriteLine("6 - Imprimir pares de moedas");
-            Console.WriteLine("7 - Inserir corretora");
+            Console.WriteLine("7 - Cadastrar corretora");
             Console.WriteLine("8 - Remover corretora WIP");
             Console.WriteLine("9 - Imprimir corretoras");
             Console.WriteLine("");
@@ -502,6 +500,47 @@ namespace Carteira_de_criptomoeda
             }
 
             MenuAdmin();
+        }
+
+        public void MenuLogin()
+        {
+            ConsoleKeyInfo sel_l;
+
+            Console.Clear();
+            Console.WriteLine("Menu do cliente");
+            Console.WriteLine("");
+            Console.WriteLine("1 - Fazer login");
+            Console.WriteLine("2 - Cadastrar");
+            Console.WriteLine("");
+            Console.WriteLine("0 - Sair");
+            Console.WriteLine("");
+            Console.WriteLine("Digite para escolher uma acao");
+
+            sel_l = Console.ReadKey();
+
+            Console.Clear();
+
+            switch (sel_l.Key)
+            {
+                case ConsoleKey.D0:
+                    Console.WriteLine("Saindo do menu de login...");
+                    Console.WriteLine("Aperte qualquer botao para continuar...");
+                    Console.ReadKey();
+                    return;
+                case ConsoleKey.D1:
+                    LogarCliente();
+                    break;
+                case ConsoleKey.D2:
+                    CadastrarCliente();
+                    break;
+                default:
+                    Console.WriteLine("Acao invalida");
+                    Console.WriteLine("Aperte qualquer botao para continuar...");
+                    Console.ReadKey();
+                    break;
+            }
+
+            MenuLogin();
         }
     }
 }
