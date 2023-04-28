@@ -31,6 +31,11 @@ namespace Carteira_de_criptomoeda
             Moeda nova_moeda = new Moeda(codigo, nome);
             moedas.Add(nova_moeda);
         }
+        
+        public static void AdicionarMoeda(Moeda nova_moeda)
+        {
+            moedas.Add(nova_moeda);
+        }
 
         public static void RemoverMoeda(Moeda moeda)
         {
@@ -55,9 +60,23 @@ namespace Carteira_de_criptomoeda
             parMoedas.Add(novo_par_moeda);
         }
 
+        public static void AdicionarParMoeda(ParMoeda novo_par_moeda)
+        {
+            parMoedas.Add(novo_par_moeda);
+        }
+
         public static void RemoverParMoeda(Moeda moeda_base, Moeda moeda_cotacao)
         {
             ParMoeda par_moeda_a_ser_removido = parMoedas.Find(r => r.moedaBase == moeda_base && r.moedaCotacao == moeda_cotacao);
+            if (par_moeda_a_ser_removido != null)
+            {
+                parMoedas.Remove(par_moeda_a_ser_removido);
+            }
+        }
+
+        public static void RemoverParMoeda(ParMoeda par_moeda)
+        {
+            ParMoeda par_moeda_a_ser_removido = parMoedas.Find(r => r == par_moeda);
             if (par_moeda_a_ser_removido != null)
             {
                 parMoedas.Remove(par_moeda_a_ser_removido);
@@ -74,22 +93,34 @@ namespace Carteira_de_criptomoeda
 
         public static void LerMoeda()
         {
+            Moeda nova_moeda;
             String codigo, nome;
+
+            Console.Clear();
             Console.WriteLine("Inserir moeda ");
+            Console.WriteLine("Digite o codigo da moeda: ");
 
-            do
+            codigo = Console.ReadLine();
+
+            if (moedas.Find(r => r.Codigo == codigo) != null)
             {
-                Console.WriteLine("Digite o codigo da moeda: ");
-                codigo = Console.ReadLine();
-                if (moedas.Find(r => r.Codigo == codigo) != null)
-                {
-                    Console.WriteLine("Codigo jah existe");
-                }
-            } while (moedas.Find(r => r.Codigo == codigo) != null);
-
-            Console.WriteLine("Digite o nome da moeda: ");
-            nome = Console.ReadLine();
-            AdicionarMoeda(codigo, nome);
+                Console.Clear();
+                Console.WriteLine("Codigo jah existe");
+                Console.WriteLine("Aperte qualquer botao para continuar...");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("Digite o nome da moeda: ");
+                nome = Console.ReadLine();
+                nova_moeda = new Moeda(codigo, nome);
+                AdicionarMoeda(nova_moeda);
+                Console.Clear();
+                Console.WriteLine("Moeda adicionada: ");
+                nova_moeda.Imprime();
+                Console.WriteLine("Aperte qualquer botao para continuar...");
+                Console.ReadKey();
+            }
         }
 
         public static void LerParMoeda()
@@ -331,7 +362,7 @@ namespace Carteira_de_criptomoeda
 
         public void Menu()
         {
-            String sel;
+            String sel_m;
 
             Console.Clear();
             Console.WriteLine("Menu");
@@ -342,21 +373,23 @@ namespace Carteira_de_criptomoeda
             Console.WriteLine("0 - Sair");
             Console.WriteLine("");
             Console.WriteLine("Digite para escolher uma acao");
-            sel = Console.ReadLine();
+            sel_m = Console.ReadLine();
 
             Console.Clear();
 
-            switch (sel)
+            switch (sel_m)
             {
                 case "0":
                     Console.WriteLine("Aplicacao terminada");
                     return;
                     break;
                 case "1":
-                    // Menu do Admin
+                    MenuAdmin();
                     break;
                 case "2":
-                    // Menu do cliente
+                    Console.WriteLine("Menu do cliente WIP");
+                    Console.WriteLine("Aperte qualquer botao para continuar...");
+                    Console.ReadKey();
                     break;
                 default:
                     Console.WriteLine("Acao invalida");
@@ -366,6 +399,73 @@ namespace Carteira_de_criptomoeda
             }
 
             Menu();
+        }
+
+        public void MenuAdmin()
+        {
+            String sel_a;
+
+            Console.Clear();
+            Console.WriteLine("Menu de admin");
+            Console.WriteLine("");
+            Console.WriteLine("1 - Inserir moeda");
+            Console.WriteLine("2 - Remover moeda WIP");
+            Console.WriteLine("3 - Inserir par de moeda WIP");
+            Console.WriteLine("4 - Remover par de moeda WIP");
+            Console.WriteLine("5 - Inserir corretora WIP");
+            Console.WriteLine("6 - Remover corretora WIP");
+            Console.WriteLine("");
+            Console.WriteLine("0 - Sair");
+            Console.WriteLine("");
+            Console.WriteLine("Digite para escolher uma acao");
+            sel_a = Console.ReadLine();
+
+            Console.Clear();
+
+            switch (sel_a)
+            {
+                case "0":
+                    Console.WriteLine("Saindo do menu de admin");
+                    Console.WriteLine("Aperte qualquer botao para continuar...");
+                    Console.ReadKey();
+                    return;
+                    break;
+                case "1":
+                    LerMoeda();
+                    break;
+                case "2":
+                    Console.WriteLine("WIP");
+                    Console.WriteLine("Aperte qualquer botao para continuar...");
+                    Console.ReadKey();
+                    break;
+                case "3":
+                    Console.WriteLine("WIP");
+                    Console.WriteLine("Aperte qualquer botao para continuar...");
+                    Console.ReadKey();
+                    break;
+                case "4":
+                    Console.WriteLine("WIP");
+                    Console.WriteLine("Aperte qualquer botao para continuar...");
+                    Console.ReadKey();
+                    break;
+                case "5":
+                    Console.WriteLine("WIP");
+                    Console.WriteLine("Aperte qualquer botao para continuar...");
+                    Console.ReadKey();
+                    break;
+                case "6":
+                    Console.WriteLine("WIP");
+                    Console.WriteLine("Aperte qualquer botao para continuar...");
+                    Console.ReadKey();
+                    break;
+                default:
+                    Console.WriteLine("Acao invalida");
+                    Console.WriteLine("Aperte qualquer botao para continuar...");
+                    Console.ReadKey();
+                    break;
+            }
+
+            MenuAdmin();
         }
     }
 }
