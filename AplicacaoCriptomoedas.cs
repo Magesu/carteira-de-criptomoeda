@@ -48,10 +48,15 @@ namespace Carteira_de_criptomoeda
 
         public static void ImprimeMoedas()
         {
+            Console.WriteLine("Moedas");
+
             foreach (Moeda moeda in moedas)
             {
                 moeda.Imprime();
             }
+
+            Console.WriteLine("Aperte qualquer botao para continuar...");
+            Console.ReadKey();
         }
 
         public static void AdicionarParMoeda(Moeda moeda_base, Moeda moeda_cotacao, double valor)
@@ -85,10 +90,15 @@ namespace Carteira_de_criptomoeda
 
         public static void ImprimeParMoedas()
         {
+            Console.WriteLine("Pares de moedas");
+
             foreach (ParMoeda parMoeda in parMoedas)
             {
                 parMoeda.Imprime();
             }
+
+            Console.WriteLine("Aperte qualquer botao para continuar...");
+            Console.ReadKey();
         }
 
         public static void LerMoeda()
@@ -423,10 +433,10 @@ namespace Carteira_de_criptomoeda
             Console.WriteLine("");
             Console.WriteLine("1 - Inserir moeda");
             Console.WriteLine("2 - Remover moeda WIP");
-            Console.WriteLine("3 - Imprimir moedas WIP");
-            Console.WriteLine("4 - Inserir par de moeda WIP");
+            Console.WriteLine("3 - Imprimir moedas");
+            Console.WriteLine("4 - Inserir par de moeda");
             Console.WriteLine("5 - Remover par de moeda WIP");
-            Console.WriteLine("6 - Imprimir par de moedas WIP");
+            Console.WriteLine("6 - Imprimir pares de moedas");
             Console.WriteLine("7 - Inserir corretora WIP");
             Console.WriteLine("8 - Remover corretora WIP");
             Console.WriteLine("9 - Imprimir corretoras WIP");
@@ -455,9 +465,7 @@ namespace Carteira_de_criptomoeda
                     Console.ReadKey();
                     break;
                 case ConsoleKey.D3:
-                    Console.WriteLine("WIP");
-                    Console.WriteLine("Aperte qualquer botao para continuar...");
-                    Console.ReadKey();
+                    ImprimeMoedas();
                     break;
                 case ConsoleKey.D4:
                     LerParMoeda();
@@ -468,9 +476,7 @@ namespace Carteira_de_criptomoeda
                     Console.ReadKey();
                     break;
                 case ConsoleKey.D6:
-                    Console.WriteLine("WIP");
-                    Console.WriteLine("Aperte qualquer botao para continuar...");
-                    Console.ReadKey();
+                    ImprimeParMoedas();
                     break;
                 case ConsoleKey.D7:
                     Console.WriteLine("WIP");
