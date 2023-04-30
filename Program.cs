@@ -14,17 +14,19 @@ internal class Program
         AplicacaoCriptomoedas.AdicionarParMoeda(AplicacaoCriptomoedas.EncontrarMoeda("BTC"), AplicacaoCriptomoedas.EncontrarMoeda("USD"), 4);
         AplicacaoCriptomoedas.AdicionarParMoeda(AplicacaoCriptomoedas.EncontrarMoeda("BTC"), AplicacaoCriptomoedas.EncontrarMoeda("BRL"), 2);
 
-        //aplicacao.corretoras.Add(new Corretora(0, "Batata"));
+        aplicacao.AdicionarCorretora("Batata");
+        aplicacao.AdicionarCorretora("Banana");
         //aplicacao.clientes.Add(new Cliente(0, "Bob", "bob@gmail.com", "123456789123", "123"));
         //aplicacao.corretoras[0].InsereCarteira(new Carteira("dhsjakhjdksahjd", aplicacao.clientes[0]));
 
-        ParMoeda par_moeda;
+        Corretora corretora;
 
-        par_moeda = AplicacaoCriptomoedas.EncontrarParMoeda();
+        aplicacao.ImprimeCorretoras();
+        corretora = aplicacao.EncontrarCorretora();
 
-        if (par_moeda != null)
+        if (corretora != null)
         {
-            par_moeda.Imprime();
+            corretora.Imprime();
         }
     }
 }

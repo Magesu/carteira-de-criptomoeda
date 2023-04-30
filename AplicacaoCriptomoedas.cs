@@ -87,7 +87,7 @@ namespace Carteira_de_criptomoeda
 
         public static Moeda? EncontrarMoeda()
         {
-            Moeda moeda;
+            Moeda? moeda;
             String codigo;
 
             Console.WriteLine("Inserir codigo da moeda: ");
@@ -109,7 +109,7 @@ namespace Carteira_de_criptomoeda
 
         public static Moeda? EncontrarMoeda(String codigo)
         {
-            Moeda moeda;
+            Moeda? moeda;
             moeda = moedas.Find(r => r.Codigo == codigo);
             return moeda;
         }
@@ -233,7 +233,7 @@ namespace Carteira_de_criptomoeda
 
         public static ParMoeda? EncontrarParMoeda()
         {
-            ParMoeda par_moeda;
+            ParMoeda? par_moeda;
             Moeda moeda_base, moeda_cotacao;
 
             Console.WriteLine("Encontrar moeda base");
@@ -267,7 +267,7 @@ namespace Carteira_de_criptomoeda
 
         public static ParMoeda? EncontrarParMoeda(Moeda moeda_base, Moeda moeda_cotacao)
         {
-            ParMoeda par_moeda;
+            ParMoeda? par_moeda;
             par_moeda = parMoedas.Find(r => r.moedaBase == moeda_base && r.moedaCotacao == moeda_cotacao);
             return par_moeda;
         }
@@ -278,6 +278,20 @@ namespace Carteira_de_criptomoeda
             novo_codigo_corretora++;
         }
 
+        public void CadastrarCorretora()
+        {
+            String nome = "";
+
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("Cadastrar corretora");
+                Console.WriteLine("Digite o nome da corretora:");
+                nome = Console.ReadLine();
+                AdicionarCorretora(nome);
+            } while (nome == "");
+        }
+        
         public void ImprimeCorretoras()
         {
             Console.WriteLine("Corretoras");
@@ -298,20 +312,92 @@ namespace Carteira_de_criptomoeda
             Console.ReadKey();
         }
 
-        public void CadastrarCorretora()
+        public Corretora? EncontrarCorretora()
         {
-            String nome = "";
+            Corretora? corretora;
+            ConsoleKeyInfo sel_modo;
 
-            do
+            Console.Clear();
+            Console.WriteLine("Encontrar corretora");
+            Console.WriteLine("Encontrar corretora pelo codigo (d) ou nome (n)?");
+            sel_modo = Console.ReadKey();
+
+            Console.Clear();
+            if (sel_modo.Key == ConsoleKey.D)
             {
-                Console.Clear();
-                Console.WriteLine("Cadastrar corretora");
-                Console.WriteLine("Digite o nome da corretora:");
+                int codigo;
+
+                do
+                {
+                    Console.WriteLine("Encontrar corretora");
+                    Console.WriteLine("Digite o codigo:");
+                    codigo = int.Parse(Console.ReadLine());
+                    Console.Clear();
+                } while (codigo <= 0 || codigo > corretoras.Count());
+                
+                corretora = EncontrarCorretora(codigo);
+            }
+            else if (sel_modo.Key == ConsoleKey.N)
+            {
+                String nome;
+                Console.WriteLine("Encontrar corretora");
+                Console.WriteLine("Digite o nome: ");
                 nome = Console.ReadLine();
-                AdicionarCorretora(nome);
-            } while (nome == "");
+                corretora = EncontrarCorretora(nome);
+            }
+            else
+            {
+                Console.WriteLine("Opcao invalida");
+                return null;
+            }
+
+            if(corretora == null)
+            {
+                Console.WriteLine("Corretora nao encontrada");
+            }
+
+            return corretora;
         }
-        
+
+        public Corretora? EncontrarCorretora(int codigo)
+        {
+            Corretora? corretora;
+            corretora = corretoras.Find(r => r.codigo == codigo);
+            return corretora;
+        }
+
+        public Corretora? EncontrarCorretora(String nome)
+        {
+            Corretora? corretora = null;
+            List<Corretora> corretoras_encontradas = new List<Corretora>();
+            corretoras_encontradas = corretoras.FindAll(r => r.nome == nome);
+
+            if (corretoras_encontradas.Count() == 1)
+            {
+                corretora = corretoras_encontradas.ElementAt(0);
+            }
+            else if (corretoras_encontradas.Count() > 1)
+            {
+                int sel_corr = 1;
+
+                do
+                {
+                    Console.Clear();
+                    Console.WriteLine("Corretoras encontradas");
+                    foreach (Corretora corretora_encontrada in corretoras_encontradas)
+                    {
+                        corretora_encontrada.Imprime();
+                    }
+                    Console.WriteLine("Escolha a corretora (1a, 2a, ..., na): ");
+                    sel_corr = int.Parse(Console.ReadLine());
+                } while (sel_corr <= 0 || sel_corr > corretoras_encontradas.Count());
+                
+                corretora = corretoras_encontradas.ElementAt(sel_corr - 1);
+            }
+
+            return corretora;
+        }
+
         public void ImprimeClientes()
         {
             foreach (Cliente cliente in clientes)
