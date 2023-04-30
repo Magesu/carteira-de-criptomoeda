@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
@@ -56,8 +57,7 @@ namespace Carteira_de_criptomoeda
                 nome = Console.ReadLine();
             } while (nome == "");
             
-            nova_moeda = new Moeda(codigo, nome);
-            AdicionarMoeda(nova_moeda);
+            nova_moeda = AdicionarMoeda(codigo, nome);
             Console.Clear();
             Console.WriteLine("Moeda adicionada: ");
             nova_moeda.Imprime();
@@ -70,10 +70,11 @@ namespace Carteira_de_criptomoeda
             moedas.Add(nova_moeda);
         }
 
-        public static void AdicionarMoeda(string codigo, string nome)
+        public static Moeda AdicionarMoeda(string codigo, string nome)
         {
             Moeda nova_moeda = new Moeda(codigo, nome);
             moedas.Add(nova_moeda);
+            return nova_moeda;
         }
 
         public static void RemoverMoeda(Moeda moeda)
@@ -172,8 +173,7 @@ namespace Carteira_de_criptomoeda
                 valor = Double.Parse(Console.ReadLine());
             } while (valor < 0);
 
-            novo_par_moeda = new ParMoeda(moeda_base, moeda_cotacao, valor);
-            AdicionarParMoeda(novo_par_moeda);
+            novo_par_moeda = AdicionarParMoeda(moeda_base, moeda_cotacao, valor);
 
             Console.Clear();
             Console.WriteLine("Par inserido: ");
@@ -187,10 +187,11 @@ namespace Carteira_de_criptomoeda
             parMoedas.Add(novo_par_moeda);
         }
 
-        public static void AdicionarParMoeda(Moeda moeda_base, Moeda moeda_cotacao, double valor)
+        public static ParMoeda AdicionarParMoeda(Moeda moeda_base, Moeda moeda_cotacao, double valor)
         {
             ParMoeda novo_par_moeda = new ParMoeda(moeda_base, moeda_cotacao, valor);
             parMoedas.Add(novo_par_moeda);
+            return novo_par_moeda;
         }
         
         public static void RemoverParMoeda(Moeda moeda_base, Moeda moeda_cotacao)
@@ -272,10 +273,12 @@ namespace Carteira_de_criptomoeda
             return par_moeda;
         }
 
-        public void AdicionarCorretora(String nome)
+        public Corretora AdicionarCorretora(String nome)
         {
-            corretoras.Add(new Corretora(novo_codigo_corretora, nome));
+            Corretora nova_corretora = new Corretora(novo_codigo_corretora, nome);
+            corretoras.Add(nova_corretora);
             novo_codigo_corretora++;
+            return nova_corretora;
         }
 
         public void CadastrarCorretora()
@@ -398,17 +401,17 @@ namespace Carteira_de_criptomoeda
             return corretora;
         }
 
-        public void ImprimeClientes()
+        public Cliente AdicionarCliente(String nome, String email, String celular, String passhash)
         {
-            foreach (Cliente cliente in clientes)
-            {
-                cliente.Imprime();
-            }
+            Cliente novo_cliente = new Cliente(novo_codigo_cliente, nome, email, celular, passhash);
+            novo_codigo_cliente++;
+            clientes.Add(novo_cliente);
+            return novo_cliente;
         }
 
         public void CadastrarCliente()
         {
-            String nome, email, celular, passhash;
+            String nome, email, celular, senha, passhash;
             Cliente novo_cliente;
 
             Console.WriteLine("Cadastrar cliente");
@@ -419,14 +422,36 @@ namespace Carteira_de_criptomoeda
             Console.WriteLine("Digite o celular do cliente:");
             celular = Console.ReadLine();
             Console.WriteLine("Digite a senha do cliente:");
-            passhash = Console.ReadLine();
+            senha = Console.ReadLine();
 
-            novo_cliente = new Cliente(novo_codigo_cliente, nome, email, celular, passhash);
-            novo_codigo_cliente++;
+            passhash = "batata" + senha;
 
-            clientes.Add(novo_cliente);
+            novo_cliente = AdicionarCliente(nome, email, celular, passhash);
 
             CadastrarCarteira(novo_cliente);
+        }
+
+        public void ImprimeClientes()
+        {
+            Console.WriteLine("Clientes");
+            if (clientes.Count() < 1)
+            {
+                Console.WriteLine("Nenhum cliente encontrado");
+            }
+            else
+            {
+                foreach (Cliente cliente in clientes)
+                {
+                    cliente.Imprime();
+                }
+            }
+        }
+
+        public Cliente EncontrarCliente(int codigo)
+        {
+            Cliente? cliente;
+            cliente = clientes.Find(r => r.Codigo == codigo);
+            return cliente;
         }
 
         public void CadastrarCarteira()
