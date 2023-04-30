@@ -106,11 +106,14 @@ namespace Carteira_de_criptomoeda
             Moeda nova_moeda;
             String codigo, nome;
 
-            Console.Clear();
-            Console.WriteLine("Inserir moeda ");
-            Console.WriteLine("Digite o codigo da moeda: ");
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("Inserir moeda ");
+                Console.WriteLine("Digite o codigo da moeda: ");
 
-            codigo = Console.ReadLine();
+                codigo = Console.ReadLine();
+            } while (codigo == "");
 
             if (moedas.Find(r => r.Codigo == codigo) != null)
             {
@@ -118,19 +121,22 @@ namespace Carteira_de_criptomoeda
                 Console.WriteLine("Codigo jah existe");
                 Console.WriteLine("Aperte qualquer botao para continuar...");
                 Console.ReadKey();
+                return;
             }
-            else
+
+            do
             {
                 Console.WriteLine("Digite o nome da moeda: ");
                 nome = Console.ReadLine();
-                nova_moeda = new Moeda(codigo, nome);
-                AdicionarMoeda(nova_moeda);
-                Console.Clear();
-                Console.WriteLine("Moeda adicionada: ");
-                nova_moeda.Imprime();
-                Console.WriteLine("Aperte qualquer botao para continuar...");
-                Console.ReadKey();
-            }
+            } while (nome == "");
+            
+            nova_moeda = new Moeda(codigo, nome);
+            AdicionarMoeda(nova_moeda);
+            Console.Clear();
+            Console.WriteLine("Moeda adicionada: ");
+            nova_moeda.Imprime();
+            Console.WriteLine("Aperte qualquer botao para continuar...");
+            Console.ReadKey();
         }
 
         public static void LerParMoeda()
@@ -170,9 +176,21 @@ namespace Carteira_de_criptomoeda
                 Console.ReadKey();
                 return;
             }
+            
+            if (moeda_cotacao == moeda_base)
+            {
+                Console.Clear();
+                Console.WriteLine("Moeda eh igual a moeda base");
+                Console.WriteLine("Aperte qualquer botao para continuar...");
+                Console.ReadKey();
+                return;
+            }
 
-            Console.WriteLine("Digite o valor: ");
-            valor = Double.Parse(Console.ReadLine());
+            do
+            {
+                Console.WriteLine("Digite o valor (nao pode ser negativo): ");
+                valor = Double.Parse(Console.ReadLine());
+            } while (valor < 0);
 
             novo_par_moeda = new ParMoeda(moeda_base, moeda_cotacao, valor);
             AdicionarParMoeda(moeda_base, moeda_cotacao, valor);
