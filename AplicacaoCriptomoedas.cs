@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,82 +27,7 @@ namespace Carteira_de_criptomoeda
             this.novo_codigo_corretora = 1;
         }
 
-        public static void AdicionarMoeda(string codigo, string nome)
-        {
-            Moeda nova_moeda = new Moeda(codigo, nome);
-            moedas.Add(nova_moeda);
-        }
-
-        public static void AdicionarMoeda(Moeda nova_moeda)
-        {
-            moedas.Add(nova_moeda);
-        }
-
-        public static void RemoverMoeda(Moeda moeda)
-        {
-            Moeda moeda_a_ser_removida = moedas.Find(r => r == moeda);
-            if (moeda_a_ser_removida != null)
-            {
-                moedas.Remove(moeda_a_ser_removida);
-            }
-        }
-
-        public static void ImprimeMoedas()
-        {
-            Console.WriteLine("Moedas");
-
-            foreach (Moeda moeda in moedas)
-            {
-                moeda.Imprime();
-            }
-
-            Console.WriteLine("Aperte qualquer botao para continuar...");
-            Console.ReadKey();
-        }
-
-        public static void AdicionarParMoeda(Moeda moeda_base, Moeda moeda_cotacao, double valor)
-        {
-            ParMoeda novo_par_moeda = new ParMoeda(moeda_base, moeda_cotacao, valor);
-            parMoedas.Add(novo_par_moeda);
-        }
-
-        public static void AdicionarParMoeda(ParMoeda novo_par_moeda)
-        {
-            parMoedas.Add(novo_par_moeda);
-        }
-
-        public static void RemoverParMoeda(Moeda moeda_base, Moeda moeda_cotacao)
-        {
-            ParMoeda par_moeda_a_ser_removido = parMoedas.Find(r => r.moedaBase == moeda_base && r.moedaCotacao == moeda_cotacao);
-            if (par_moeda_a_ser_removido != null)
-            {
-                parMoedas.Remove(par_moeda_a_ser_removido);
-            }
-        }
-
-        public static void RemoverParMoeda(ParMoeda par_moeda)
-        {
-            ParMoeda par_moeda_a_ser_removido = parMoedas.Find(r => r == par_moeda);
-            if (par_moeda_a_ser_removido != null)
-            {
-                parMoedas.Remove(par_moeda_a_ser_removido);
-            }
-        }
-
-        public static void ImprimeParMoedas()
-        {
-            Console.WriteLine("Pares de moedas");
-
-            foreach (ParMoeda parMoeda in parMoedas)
-            {
-                parMoeda.Imprime();
-            }
-
-            Console.WriteLine("Aperte qualquer botao para continuar...");
-            Console.ReadKey();
-        }
-
-        public static void LerMoeda()
+        public static void AdicionarMoeda()
         {
             Moeda nova_moeda;
             String codigo, nome;
@@ -139,7 +65,76 @@ namespace Carteira_de_criptomoeda
             Console.ReadKey();
         }
 
-        public static void LerParMoeda()
+        public static void AdicionarMoeda(Moeda nova_moeda)
+        {
+            moedas.Add(nova_moeda);
+        }
+
+        public static void AdicionarMoeda(string codigo, string nome)
+        {
+            Moeda nova_moeda = new Moeda(codigo, nome);
+            moedas.Add(nova_moeda);
+        }
+
+        public static void RemoverMoeda(Moeda moeda)
+        {
+            Moeda moeda_a_ser_removida = moedas.Find(r => r == moeda);
+            if (moeda_a_ser_removida != null)
+            {
+                moedas.Remove(moeda_a_ser_removida);
+            }
+        }
+
+        public static Moeda? EncontrarMoeda()
+        {
+            Moeda moeda;
+            String codigo;
+
+            Console.WriteLine("Inserir codigo da moeda: ");
+            codigo = Console.ReadLine();
+
+            moeda = EncontrarMoeda(codigo);
+
+            if (moeda == null)
+            {
+                Console.Clear();
+                Console.WriteLine("Moeda nao existe");
+                Console.WriteLine("Aperte qualquer botao para continuar...");
+                Console.ReadKey();
+                return null;
+            }
+
+            return moeda;
+        }
+
+        public static Moeda? EncontrarMoeda(String codigo)
+        {
+            Moeda moeda;
+            moeda = moedas.Find(r => r.Codigo == codigo);
+            return moeda;
+        }
+
+        public static void ImprimeMoedas()
+        {
+            Console.WriteLine("Moedas");
+
+            if (moedas.Count() < 1)
+            {
+                Console.WriteLine("Nenhuma moeda encontrada");
+            }
+            else
+            {
+                foreach (Moeda moeda in moedas)
+                {
+                    moeda.Imprime();
+                }
+            }
+            
+            Console.WriteLine("Aperte qualquer botao para continuar...");
+            Console.ReadKey();
+        }
+
+        public static void AdicionarParMoeda()
         {
             ParMoeda novo_par_moeda;
             Moeda moeda_base, moeda_cotacao;
@@ -148,35 +143,20 @@ namespace Carteira_de_criptomoeda
             Console.Clear();
             Console.WriteLine("Inserir par de moedas");
 
-            String codigo_moeda_base;
-            Console.WriteLine("Inserir codigo da moeda base: ");
-            codigo_moeda_base = Console.ReadLine();
-            moeda_base = moedas.Find(r => r.Codigo == codigo_moeda_base);
+            moeda_base = EncontrarMoeda();
 
             if (moeda_base == null)
             {
-                Console.Clear();
-                Console.WriteLine("Moeda nao existe");
-                Console.WriteLine("Aperte qualquer botao para continuar...");
-                Console.ReadKey();
                 return;
             }
 
-            
-            String codigo_moeda_cotacao;
-            Console.WriteLine("Digite o codigo da moeda de cotacao: ");
-            codigo_moeda_cotacao = Console.ReadLine();
-            moeda_cotacao = moedas.Find(r => r.Codigo == codigo_moeda_cotacao);
+            moeda_cotacao = EncontrarMoeda();
 
             if (moeda_cotacao == null)
             {
-                Console.Clear();
-                Console.WriteLine("Moeda nao existe");
-                Console.WriteLine("Aperte qualquer botao para continuar...");
-                Console.ReadKey();
                 return;
             }
-            
+
             if (moeda_cotacao == moeda_base)
             {
                 Console.Clear();
@@ -193,7 +173,7 @@ namespace Carteira_de_criptomoeda
             } while (valor < 0);
 
             novo_par_moeda = new ParMoeda(moeda_base, moeda_cotacao, valor);
-            AdicionarParMoeda(moeda_base, moeda_cotacao, valor);
+            AdicionarParMoeda(novo_par_moeda);
 
             Console.Clear();
             Console.WriteLine("Par inserido: ");
@@ -201,6 +181,97 @@ namespace Carteira_de_criptomoeda
             Console.WriteLine("Aperte qualquer botao para continuar...");
             Console.ReadKey();
         }
+
+        public static void AdicionarParMoeda(ParMoeda novo_par_moeda)
+        {
+            parMoedas.Add(novo_par_moeda);
+        }
+
+        public static void AdicionarParMoeda(Moeda moeda_base, Moeda moeda_cotacao, double valor)
+        {
+            ParMoeda novo_par_moeda = new ParMoeda(moeda_base, moeda_cotacao, valor);
+            parMoedas.Add(novo_par_moeda);
+        }
+        
+        public static void RemoverParMoeda(Moeda moeda_base, Moeda moeda_cotacao)
+        {
+            ParMoeda par_moeda_a_ser_removido = parMoedas.Find(r => r.moedaBase == moeda_base && r.moedaCotacao == moeda_cotacao);
+            if (par_moeda_a_ser_removido != null)
+            {
+                parMoedas.Remove(par_moeda_a_ser_removido);
+            }
+        }
+
+        public static void RemoverParMoeda(ParMoeda par_moeda)
+        {
+            ParMoeda par_moeda_a_ser_removido = parMoedas.Find(r => r == par_moeda);
+            if (par_moeda_a_ser_removido != null)
+            {
+                parMoedas.Remove(par_moeda_a_ser_removido);
+            }
+        }
+
+        public static void ImprimeParMoedas()
+        {
+            Console.WriteLine("Pares de moedas");
+
+            if (parMoedas.Count() < 1)
+            {
+                Console.WriteLine("Nenhum par encontrado");
+            }
+            else
+            {
+                foreach (ParMoeda parMoeda in parMoedas)
+                {
+                    parMoeda.Imprime();
+                }
+            }
+
+            Console.WriteLine("Aperte qualquer botao para continuar...");
+            Console.ReadKey();
+        }
+
+        public static ParMoeda? EncontrarParMoeda()
+        {
+            ParMoeda par_moeda;
+            Moeda moeda_base, moeda_cotacao;
+
+            Console.WriteLine("Encontrar moeda base");
+            moeda_base = EncontrarMoeda();
+
+            if (moeda_base == null)
+            {
+                return null;
+            }
+
+            Console.WriteLine("Encontrar moeda de cotacao");
+            moeda_cotacao = EncontrarMoeda();
+
+            if (moeda_cotacao == null)
+            {
+                return null;
+            }
+
+            par_moeda = EncontrarParMoeda(moeda_base, moeda_cotacao);
+
+            if (par_moeda == null)
+            {
+                Console.Clear();
+                Console.WriteLine("Par moeda nao existe");
+                Console.WriteLine("Aperte qualquer botao para continuar...");
+                Console.ReadKey();
+            }
+
+            return par_moeda;
+        }
+
+        public static ParMoeda? EncontrarParMoeda(Moeda moeda_base, Moeda moeda_cotacao)
+        {
+            ParMoeda par_moeda;
+            par_moeda = parMoedas.Find(r => r.moedaBase == moeda_base && r.moedaCotacao == moeda_cotacao);
+            return par_moeda;
+        }
+
 
         public void ImprimeCorretoras()
         {
@@ -563,7 +634,7 @@ namespace Carteira_de_criptomoeda
                     Console.ReadKey();
                     return;
                 case ConsoleKey.D1:
-                    LerMoeda();
+                    //LerMoeda();
                     break;
                 case ConsoleKey.D2:
                     Console.WriteLine("WIP");
@@ -574,7 +645,7 @@ namespace Carteira_de_criptomoeda
                     ImprimeMoedas();
                     break;
                 case ConsoleKey.D4:
-                    LerParMoeda();
+                    //LerParMoeda();
                     break;
                 case ConsoleKey.D5:
                     Console.WriteLine("WIP");
