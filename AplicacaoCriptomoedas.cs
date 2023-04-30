@@ -272,14 +272,26 @@ namespace Carteira_de_criptomoeda
             return par_moeda;
         }
 
+        public void AdicionarCorretora(String nome)
+        {
+            corretoras.Add(new Corretora(novo_codigo_corretora, nome));
+            novo_codigo_corretora++;
+        }
 
         public void ImprimeCorretoras()
         {
             Console.WriteLine("Corretoras");
 
-            foreach (Corretora corretora in corretoras)
+            if (corretoras.Count() < 1)
             {
-                corretora.Imprime();
+                Console.WriteLine("Nenhuma corretora encontrada");
+            }
+            else
+            {
+                foreach (Corretora corretora in corretoras)
+                {
+                    corretora.Imprime();
+                }
             }
 
             Console.WriteLine("Aperte qualquer botao para continuar...");
@@ -288,13 +300,16 @@ namespace Carteira_de_criptomoeda
 
         public void CadastrarCorretora()
         {
-            String nome;
+            String nome = "";
 
-            Console.WriteLine("Cadastrar corretora");
-            Console.WriteLine("Digite o nome da corretora:");
-            nome = Console.ReadLine();
-            corretoras.Add(new Corretora(novo_codigo_corretora,nome));
-            novo_codigo_corretora++;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("Cadastrar corretora");
+                Console.WriteLine("Digite o nome da corretora:");
+                nome = Console.ReadLine();
+                AdicionarCorretora(nome);
+            } while (nome == "");
         }
         
         public void ImprimeClientes()
