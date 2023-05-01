@@ -461,7 +461,8 @@ namespace Carteira_de_criptomoeda
 
             novo_cliente = AdicionarCliente(nome, email, celular, passhash);
             cliente_logado = novo_cliente;
-            CadastrarCarteira();
+            carteira_selecionada = CadastrarCarteira();
+            MenuCliente();
         }
 
         public void ImprimeClientes()
@@ -495,11 +496,11 @@ namespace Carteira_de_criptomoeda
             return nova_carteira;
         }
 
-        public void CadastrarCarteira()
+        public Carteira CadastrarCarteira()
         {
             if (cliente_logado == null)
             {
-                return;
+                return null;
             }
 
             String endereco;
@@ -519,7 +520,7 @@ namespace Carteira_de_criptomoeda
                 endereco = Console.ReadLine();
             } while (endereco == "");
 
-            AdicionarCarteira(corretora_escolhida, endereco, cliente_logado);
+            return AdicionarCarteira(corretora_escolhida, endereco, cliente_logado);
         }
 
         public void LogarCliente()
@@ -810,7 +811,6 @@ namespace Carteira_de_criptomoeda
                     break;
                 case ConsoleKey.D2:
                     CadastrarCliente();
-                    MenuCliente();
                     break;
                 default:
                     Console.WriteLine("Acao invalida");
