@@ -45,7 +45,6 @@ namespace Carteira_de_criptomoeda
             Console.Write("Cliente: ");
             cliente.Imprime();
             Console.WriteLine();
-            ImprimeItensCarteira();
         }
 
         public void ImprimeItensCarteira()
