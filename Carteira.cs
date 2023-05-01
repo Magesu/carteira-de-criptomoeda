@@ -57,6 +57,26 @@ namespace Carteira_de_criptomoeda
             }
         }
 
+        public void ImprimeItensCarteiraComValor(Moeda moeda_cotacao)
+        {
+            Console.WriteLine("Itens da carteira:");
+            foreach (ItemCarteira item in itensCarteira)
+            {
+                double valor = item.ObtemCotacaoMoeda(moeda_cotacao);
+                item.Imprime();
+                if (valor >= 0)
+                {
+                    Console.Write("\tValor: {0:0.00}", valor);
+                }
+                else
+                {
+                    Console.Write("\tValor: --");
+                }
+                
+                Console.WriteLine();
+            }
+        }
+
         public void Depositar(Moeda moeda, double quant)
         {
             ItemCarteira item_carteira = itensCarteira.Find(r => r.moeda == moeda);

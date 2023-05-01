@@ -687,6 +687,8 @@ namespace Carteira_de_criptomoeda
             carteira_selecionada.Sacar(moeda_a_sacar, quantidade_a_sacar);
         }
 
+        //public void ImprimeValor
+
         public void Menu()
         {
             ConsoleKeyInfo sel_m;
@@ -827,6 +829,7 @@ namespace Carteira_de_criptomoeda
         public void MenuCliente()
         {
             ConsoleKeyInfo sel_c;
+            Moeda moeda_cotacao;
 
             while(carteira_selecionada == null) 
             { 
@@ -837,11 +840,12 @@ namespace Carteira_de_criptomoeda
             Console.WriteLine("Menu do cliente");
             Console.WriteLine("");
             Console.WriteLine("1 - Imprimir carteira");
-            Console.WriteLine("2 - Depositar");
-            Console.WriteLine("3 - Sacar");
-            Console.WriteLine("4 - Selecionar outra carteira");
-            Console.WriteLine("5 - Criar outra carteira");
-            Console.WriteLine("6 - Imprime corretoras");
+            Console.WriteLine("2 - Imprimir carteira com valores");
+            Console.WriteLine("3 - Depositar");
+            Console.WriteLine("4 - Sacar");
+            Console.WriteLine("5 - Selecionar outra carteira");
+            Console.WriteLine("6 - Criar outra carteira");
+            Console.WriteLine("7 - Imprime corretoras");
             Console.WriteLine("");
             Console.WriteLine("0 - Deslogar");
             Console.WriteLine("");
@@ -867,18 +871,29 @@ namespace Carteira_de_criptomoeda
                     Console.ReadKey();
                     break;
                 case ConsoleKey.D2:
-                    LerEDepositar();
+                    Console.WriteLine("Escolher moeda de cotacao");
+                    moeda_cotacao = EncontrarMoeda();
+                    Console.WriteLine();
+                    Console.Write("Carteira selecionada\n\n");
+                    carteira_selecionada.Imprime();
+                    carteira_selecionada.ImprimeItensCarteiraComValor(moeda_cotacao);
+                    Console.Write("\nMoedas com valor -- nao tem par com essa moeda no sistema\n");
+                    Console.Write("\nAperte qualquer botao para continuar...");
+                    Console.ReadKey();
                     break;
                 case ConsoleKey.D3:
-                    LerESacar();
+                    LerEDepositar();
                     break;
                 case ConsoleKey.D4:
-                    SelecionarCarteira();
+                    LerESacar();
                     break;
                 case ConsoleKey.D5:
-                    CadastrarCarteira();
+                    SelecionarCarteira();
                     break;
                 case ConsoleKey.D6:
+                    CadastrarCarteira();
+                    break;
+                case ConsoleKey.D7:
                     ImprimeCorretoras();
                     break;
                 default:
