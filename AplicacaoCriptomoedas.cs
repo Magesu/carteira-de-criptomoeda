@@ -330,7 +330,6 @@ namespace Carteira_de_criptomoeda
             Corretora? corretora;
             ConsoleKeyInfo sel_modo;
 
-            Console.Clear();
             Console.WriteLine("Encontrar corretora");
             Console.WriteLine("Encontrar corretora pelo codigo (d) ou nome (n)?");
             sel_modo = Console.ReadKey();
@@ -361,12 +360,16 @@ namespace Carteira_de_criptomoeda
             else
             {
                 Console.WriteLine("Opcao invalida");
+                Console.WriteLine("Aperte qualquer botao para continuar");
+                Console.ReadKey();
                 return null;
             }
 
             if(corretora == null)
             {
                 Console.WriteLine("Corretora nao encontrada");
+                Console.WriteLine("Aperte qualquer botao para continuar");
+                Console.ReadKey();
             }
 
             return corretora;
@@ -425,14 +428,34 @@ namespace Carteira_de_criptomoeda
             Cliente novo_cliente;
 
             Console.WriteLine("Cadastrar cliente");
-            Console.WriteLine("Digite o nome do cliente:");
-            nome = Console.ReadLine();
-            Console.WriteLine("Digite o email do cliente:");
-            email = Console.ReadLine();
-            Console.WriteLine("Digite o celular do cliente:");
-            celular = Console.ReadLine();
-            Console.WriteLine("Digite a senha do cliente:");
-            senha = Console.ReadLine();
+
+            do
+            {
+                Console.WriteLine("Digite o nome do cliente:");
+                nome = Console.ReadLine();
+                Console.Clear();
+            } while (nome == "");
+
+            do
+            {
+                Console.WriteLine("Digite o email do cliente:");
+                email = Console.ReadLine();
+                Console.Clear();
+            } while (email == "");
+
+            do
+            {
+                Console.WriteLine("Digite o celular do cliente:");
+                celular = Console.ReadLine();
+                Console.Clear();
+            } while (celular == "");
+
+            do
+            {
+                Console.WriteLine("Digite a senha do cliente:");
+                senha = Console.ReadLine();
+                Console.Clear();
+            } while (senha == "");
 
             passhash = "batata" + senha;
 
@@ -781,6 +804,7 @@ namespace Carteira_de_criptomoeda
                     break;
                 case ConsoleKey.D2:
                     CadastrarCliente();
+                    MenuCliente();
                     break;
                 default:
                     Console.WriteLine("Acao invalida");
