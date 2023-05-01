@@ -23,9 +23,7 @@ namespace Carteira_de_criptomoeda
 
         public void Imprime()
         {
-            moedaBase.Imprime();
-            moedaCotacao.Imprime();
-            Console.WriteLine("valor: {0:0.00}", valor);
+            Console.Write("Moeda: {0}\tPar: {1}/{2}\tValor: {3:0.00}", moedaBase.Nome, moedaBase.Codigo, moedaCotacao.Codigo, valor);
         }
     }
 }

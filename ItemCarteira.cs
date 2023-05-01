@@ -35,7 +35,7 @@ namespace Carteira_de_criptomoeda
         public void Imprime()
         {
             moeda.Imprime();
-            Console.WriteLine("quantidade: {0}", quantidade);
+            Console.Write("\tquantidade: {0}", quantidade);
         }
     }
 }

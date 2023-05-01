@@ -27,7 +27,7 @@ namespace Carteira_de_criptomoeda
 
         public void Imprime()
         {
-            Console.WriteLine("[Codigo: {0} Nome: {1} Email: {2} Celular: {3} PassHash: {4}]", Codigo, Nome, Email, Celular, PassHash);
+            Console.Write("Codigo: {0}\tNome: {1}\tEmail: {2}\t Celular: {3}", Codigo, Nome, Email, Celular);
         }
     }
 }

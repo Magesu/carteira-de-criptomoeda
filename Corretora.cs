@@ -29,6 +29,14 @@ namespace Carteira_de_criptomoeda
             carteiras.Add(nova_carteira);
         }
 
+        public Carteira InsereCarteira(String endereco, Cliente cliente)
+        {
+            Carteira nova_carteira;
+            nova_carteira = new Carteira(endereco, cliente);
+            carteiras.Add(nova_carteira);
+            return nova_carteira;
+        }
+
         public void RemoveCarteira(String endereco)
         {
             var carteira_para_remover = carteiras.Find(r => r.endereco == endereco);
@@ -48,13 +56,7 @@ namespace Carteira_de_criptomoeda
 
         public void Imprime()
         {
-            Console.WriteLine("Codigo: {0}", codigo);
-            Console.WriteLine("Nome: {0}", nome);
-            Console.WriteLine("Carteiras:");
-            foreach(Carteira carteira in carteiras)
-            {
-                carteira.Imprime();
-            }
+            Console.Write("Codigo: {0}\tNome: {1}\tNum. de carteiras: {2}", codigo, nome, carteiras.Count());
         }
 
     }

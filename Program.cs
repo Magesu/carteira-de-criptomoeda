@@ -11,12 +11,14 @@ internal class Program
         AplicacaoCriptomoedas.AdicionarMoeda("USD","Dolar americano");
         AplicacaoCriptomoedas.AdicionarMoeda("BRL","Real brasileiro");
         AplicacaoCriptomoedas.AdicionarMoeda("ETH","Ether");
-        AplicacaoCriptomoedas.AdicionarParMoeda(AplicacaoCriptomoedas.moedas[0], AplicacaoCriptomoedas.moedas[1], 4);
-        AplicacaoCriptomoedas.AdicionarParMoeda(AplicacaoCriptomoedas.moedas[0], AplicacaoCriptomoedas.moedas[2], 2);
+        AplicacaoCriptomoedas.AdicionarParMoeda(AplicacaoCriptomoedas.EncontrarMoeda("BTC"), AplicacaoCriptomoedas.EncontrarMoeda("USD"), 4);
+        AplicacaoCriptomoedas.AdicionarParMoeda(AplicacaoCriptomoedas.EncontrarMoeda("BTC"), AplicacaoCriptomoedas.EncontrarMoeda("BRL"), 2);
 
-        aplicacao.corretoras.Add(new Corretora(0, "Batata"));
-        aplicacao.clientes.Add(new Cliente(0, "Bob", "bob@gmail.com", "123456789123", "123"));
-        aplicacao.corretoras[0].InsereCarteira(new Carteira("dhsjakhjdksahjd", aplicacao.clientes[0]));
+        aplicacao.AdicionarCorretora("Batata");
+        aplicacao.AdicionarCorretora("Banana");
+        Cliente c1;
+        c1 = aplicacao.AdicionarCliente("Bob", "bob@gmail.com", "123456789123", "batata123");
+        aplicacao.AdicionarCarteira(aplicacao.EncontrarCorretora(1),"hfddjshfiahsjdihijadsf",c1);
 
         aplicacao.Menu();
     }
