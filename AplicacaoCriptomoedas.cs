@@ -687,6 +687,8 @@ namespace Carteira_de_criptomoeda
             carteira_selecionada.Sacar(moeda_a_sacar, quantidade_a_sacar);
         }
 
+        //public void ImprimeValor
+
         public void Menu()
         {
             ConsoleKeyInfo sel_m;
