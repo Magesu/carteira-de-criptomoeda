@@ -508,10 +508,16 @@ namespace Carteira_de_criptomoeda
             Console.Clear();
             Console.WriteLine("Cadastrar carteira");
 
-            corretora_escolhida = EncontrarCorretora();
+            do
+            {
+                corretora_escolhida = EncontrarCorretora();
+            } while (corretora_escolhida == null);
 
-            Console.WriteLine("Digite o endereco da carteira: ");
-            endereco = Console.ReadLine();
+            do
+            {
+                Console.WriteLine("Digite o endereco da carteira: ");
+                endereco = Console.ReadLine();
+            } while (endereco == "");
 
             AdicionarCarteira(corretora_escolhida, endereco, cliente_logado);
         }
