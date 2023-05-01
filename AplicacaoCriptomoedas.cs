@@ -167,6 +167,15 @@ namespace Carteira_de_criptomoeda
                 return;
             }
 
+            if (EncontrarParMoeda(moeda_base,moeda_cotacao) != null)
+            {
+                Console.Clear();
+                Console.WriteLine("Par moeda jah existe");
+                Console.WriteLine("Aperte qualquer botao para continuar...");
+                Console.ReadKey();
+                return;
+            }
+
             do
             {
                 Console.WriteLine("Digite o valor (nao pode ser negativo): ");
