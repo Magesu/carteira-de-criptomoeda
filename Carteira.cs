@@ -41,13 +41,20 @@ namespace Carteira_de_criptomoeda
 
         public void Imprime()
         {
-            Console.WriteLine("Endereco: {0}", endereco);
+            Console.WriteLine("Endereco: {0}\tNum. de itens na carteira: {1}", endereco, itensCarteira.Count());
             Console.Write("Cliente: ");
             cliente.Imprime();
+            Console.WriteLine();
+            ImprimeItensCarteira();
+        }
+
+        public void ImprimeItensCarteira()
+        {
             Console.WriteLine("Itens da carteira:");
-            foreach(ItemCarteira item in itensCarteira)
+            foreach (ItemCarteira item in itensCarteira)
             {
                 item.Imprime();
+                Console.WriteLine();
             }
         }
 

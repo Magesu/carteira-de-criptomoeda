@@ -21,7 +21,7 @@ namespace Carteira_de_criptomoeda
 
         public void Imprime()
         {
-            Console.WriteLine("[Codigo: {0} Nome: {1}]", Codigo, Nome);
+            Console.Write("Codigo: {0}\tNome: {1}", Codigo, Nome);
         }
     }
 }

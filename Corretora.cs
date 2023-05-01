@@ -56,13 +56,7 @@ namespace Carteira_de_criptomoeda
 
         public void Imprime()
         {
-            Console.WriteLine("Codigo: {0}", codigo);
-            Console.WriteLine("Nome: {0}", nome);
-            Console.WriteLine("Carteiras:");
-            foreach(Carteira carteira in carteiras)
-            {
-                carteira.Imprime();
-            }
+            Console.Write("Codigo: {0}\tNome: {1}\tNum. de carteiras: {2}", codigo, nome, carteiras.Count());
         }
 
     }

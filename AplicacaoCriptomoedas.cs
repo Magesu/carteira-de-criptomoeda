@@ -37,8 +37,7 @@ namespace Carteira_de_criptomoeda
             {
                 Console.Clear();
                 Console.WriteLine("Inserir moeda ");
-                Console.WriteLine("Digite o codigo da moeda: ");
-
+                Console.Write("Digite o codigo da moeda: ");
                 codigo = Console.ReadLine();
             } while (codigo == "");
 
@@ -46,22 +45,22 @@ namespace Carteira_de_criptomoeda
             {
                 Console.Clear();
                 Console.WriteLine("Codigo jah existe");
-                Console.WriteLine("Aperte qualquer botao para continuar...");
+                Console.Write("Aperte qualquer botao para continuar...");
                 Console.ReadKey();
                 return;
             }
 
             do
             {
-                Console.WriteLine("Digite o nome da moeda: ");
+                Console.Write("Digite o nome da moeda: ");
                 nome = Console.ReadLine();
             } while (nome == "");
             
             nova_moeda = AdicionarMoeda(codigo, nome);
             Console.Clear();
-            Console.WriteLine("Moeda adicionada: ");
+            Console.Write("Moeda adicionada\n\n");
             nova_moeda.Imprime();
-            Console.WriteLine("Aperte qualquer botao para continuar...");
+            Console.Write("\n\nAperte qualquer botao para continuar...");
             Console.ReadKey();
         }
 
@@ -91,7 +90,7 @@ namespace Carteira_de_criptomoeda
             Moeda? moeda;
             String codigo;
 
-            Console.WriteLine("Inserir codigo da moeda: ");
+            Console.Write("Inserir codigo da moeda: ");
             codigo = Console.ReadLine();
 
             moeda = EncontrarMoeda(codigo);
@@ -100,7 +99,7 @@ namespace Carteira_de_criptomoeda
             {
                 Console.Clear();
                 Console.WriteLine("Moeda nao existe");
-                Console.WriteLine("Aperte qualquer botao para continuar...");
+                Console.Write("Aperte qualquer botao para continuar...");
                 Console.ReadKey();
                 return null;
             }
@@ -117,7 +116,7 @@ namespace Carteira_de_criptomoeda
 
         public static void ImprimeMoedas()
         {
-            Console.WriteLine("Moedas");
+            Console.Write("Moedas\n\n");
 
             if (moedas.Count() < 1)
             {
@@ -128,10 +127,11 @@ namespace Carteira_de_criptomoeda
                 foreach (Moeda moeda in moedas)
                 {
                     moeda.Imprime();
+                    Console.WriteLine("");
                 }
             }
             
-            Console.WriteLine("Aperte qualquer botao para continuar...");
+            Console.Write("\nAperte qualquer botao para continuar...");
             Console.ReadKey();
         }
 
@@ -162,7 +162,7 @@ namespace Carteira_de_criptomoeda
             {
                 Console.Clear();
                 Console.WriteLine("Moeda eh igual a moeda base");
-                Console.WriteLine("Aperte qualquer botao para continuar...");
+                Console.Write("Aperte qualquer botao para continuar...");
                 Console.ReadKey();
                 return;
             }
@@ -171,23 +171,23 @@ namespace Carteira_de_criptomoeda
             {
                 Console.Clear();
                 Console.WriteLine("Par moeda jah existe");
-                Console.WriteLine("Aperte qualquer botao para continuar...");
+                Console.Write("Aperte qualquer botao para continuar...");
                 Console.ReadKey();
                 return;
             }
 
             do
             {
-                Console.WriteLine("Digite o valor (nao pode ser negativo): ");
+                Console.Write("Digite o valor (nao pode ser negativo): ");
                 valor = Double.Parse(Console.ReadLine());
             } while (valor < 0);
 
             novo_par_moeda = AdicionarParMoeda(moeda_base, moeda_cotacao, valor);
 
             Console.Clear();
-            Console.WriteLine("Par inserido: ");
+            Console.Write("Par inserido\n\n");
             novo_par_moeda.Imprime();
-            Console.WriteLine("Aperte qualquer botao para continuar...");
+            Console.Write("\n\nAperte qualquer botao para continuar...");
             Console.ReadKey();
         }
 
@@ -223,7 +223,7 @@ namespace Carteira_de_criptomoeda
 
         public static void ImprimeParMoedas()
         {
-            Console.WriteLine("Pares de moedas");
+            Console.Write("Pares de moedas\n\n");
 
             if (parMoedas.Count() < 1)
             {
@@ -234,10 +234,11 @@ namespace Carteira_de_criptomoeda
                 foreach (ParMoeda parMoeda in parMoedas)
                 {
                     parMoeda.Imprime();
+                    Console.WriteLine();
                 }
             }
 
-            Console.WriteLine("Aperte qualquer botao para continuar...");
+            Console.Write("\nAperte qualquer botao para continuar...");
             Console.ReadKey();
         }
 
@@ -268,7 +269,7 @@ namespace Carteira_de_criptomoeda
             {
                 Console.Clear();
                 Console.WriteLine("Par moeda nao existe");
-                Console.WriteLine("Aperte qualquer botao para continuar...");
+                Console.Write("Aperte qualquer botao para continuar...");
                 Console.ReadKey();
             }
 
@@ -298,7 +299,7 @@ namespace Carteira_de_criptomoeda
             {
                 Console.Clear();
                 Console.WriteLine("Cadastrar corretora");
-                Console.WriteLine("Digite o nome da corretora:");
+                Console.Write("Digite o nome da corretora: ");
                 nome = Console.ReadLine();
             } while (nome == "");
 
@@ -307,7 +308,7 @@ namespace Carteira_de_criptomoeda
         
         public void ImprimeCorretoras()
         {
-            Console.WriteLine("Corretoras");
+            Console.Write("Corretoras\n\n");
 
             if (corretoras.Count() < 1)
             {
@@ -318,10 +319,11 @@ namespace Carteira_de_criptomoeda
                 foreach (Corretora corretora in corretoras)
                 {
                     corretora.Imprime();
+                    Console.WriteLine();
                 }
             }
 
-            Console.WriteLine("Aperte qualquer botao para continuar...");
+            Console.Write("\nAperte qualquer botao para continuar...");
             Console.ReadKey();
         }
 
@@ -331,7 +333,7 @@ namespace Carteira_de_criptomoeda
             ConsoleKeyInfo sel_modo;
 
             Console.WriteLine("Encontrar corretora");
-            Console.WriteLine("Encontrar corretora pelo codigo (d) ou nome (n)?");
+            Console.Write("Encontrar corretora pelo codigo (d) ou nome (n)? ");
             sel_modo = Console.ReadKey();
 
             Console.Clear();
@@ -342,7 +344,7 @@ namespace Carteira_de_criptomoeda
                 do
                 {
                     Console.WriteLine("Encontrar corretora");
-                    Console.WriteLine("Digite o codigo:");
+                    Console.Write("Digite o codigo: ");
                     codigo = int.Parse(Console.ReadLine());
                     Console.Clear();
                 } while (codigo <= 0 || codigo > corretoras.Count());
@@ -353,14 +355,14 @@ namespace Carteira_de_criptomoeda
             {
                 String nome;
                 Console.WriteLine("Encontrar corretora");
-                Console.WriteLine("Digite o nome: ");
+                Console.Write("Digite o nome: ");
                 nome = Console.ReadLine();
                 corretora = EncontrarCorretora(nome);
             }
             else
             {
                 Console.WriteLine("Opcao invalida");
-                Console.WriteLine("Aperte qualquer botao para continuar");
+                Console.Write("Aperte qualquer botao para continuar");
                 Console.ReadKey();
                 return null;
             }
@@ -368,7 +370,7 @@ namespace Carteira_de_criptomoeda
             if(corretora == null)
             {
                 Console.WriteLine("Corretora nao encontrada");
-                Console.WriteLine("Aperte qualquer botao para continuar");
+                Console.Write("Aperte qualquer botao para continuar");
                 Console.ReadKey();
             }
 
@@ -399,12 +401,12 @@ namespace Carteira_de_criptomoeda
                 do
                 {
                     Console.Clear();
-                    Console.WriteLine("Corretoras encontradas");
+                    Console.Write("Corretoras encontradas\n\n");
                     foreach (Corretora corretora_encontrada in corretoras_encontradas)
                     {
                         corretora_encontrada.Imprime();
                     }
-                    Console.WriteLine("Escolha a corretora (1a, 2a, ..., na): ");
+                    Console.Write("\nEscolha a corretora (1a, 2a, ..., na): ");
                     sel_corr = int.Parse(Console.ReadLine());
                 } while (sel_corr <= 0 || sel_corr > corretoras_encontradas.Count());
                 
@@ -431,28 +433,28 @@ namespace Carteira_de_criptomoeda
 
             do
             {
-                Console.WriteLine("Digite o nome do cliente:");
+                Console.Write("Digite o nome do cliente: ");
                 nome = Console.ReadLine();
                 Console.Clear();
             } while (nome == "");
 
             do
             {
-                Console.WriteLine("Digite o email do cliente:");
+                Console.Write("Digite o email do cliente: ");
                 email = Console.ReadLine();
                 Console.Clear();
             } while (email == "");
 
             do
             {
-                Console.WriteLine("Digite o celular do cliente:");
+                Console.Write("Digite o celular do cliente: ");
                 celular = Console.ReadLine();
                 Console.Clear();
             } while (celular == "");
 
             do
             {
-                Console.WriteLine("Digite a senha do cliente:");
+                Console.Write("Digite a senha do cliente: ");
                 senha = Console.ReadLine();
                 Console.Clear();
             } while (senha == "");
@@ -534,9 +536,9 @@ namespace Carteira_de_criptomoeda
             String email, password, passhash;
 
             Console.WriteLine("Fazer login");
-            Console.WriteLine("Digite o email do cliente: ");
+            Console.Write("Digite o email do cliente: ");
             email = Console.ReadLine();
-            Console.WriteLine("Digite a senha do cliente: ");
+            Console.Write("Digite a senha do cliente: ");
             password = Console.ReadLine();
 
             passhash = "batata" + password;
@@ -546,7 +548,7 @@ namespace Carteira_de_criptomoeda
             if(cliente_logado == null)
             {
                 Console.WriteLine("Cliente nao existe");
-                Console.WriteLine("Aperte qualquer botao para continuar");
+                Console.Write("Aperte qualquer botao para continuar");
                 Console.ReadKey();
                 return;
             }
@@ -557,8 +559,7 @@ namespace Carteira_de_criptomoeda
         public void Deslogar()
         {
             cliente_logado = null;
-
-            Console.WriteLine("Cliente deslogado");
+            carteira_selecionada = null;
         }
         
         public Carteira? EncontrarCarteira(Corretora corretora, Cliente cliente)
@@ -571,7 +572,7 @@ namespace Carteira_de_criptomoeda
             {
                 Console.Clear();
                 Console.WriteLine("Nenhuma carteira encontrada");
-                Console.WriteLine("Aperte qualquer tecla para continuar...");
+                Console.Write("Aperte qualquer tecla para continuar...");
                 Console.ReadKey();
             }
             else if (carteiras_encontradas.Count() == 1)
@@ -585,12 +586,12 @@ namespace Carteira_de_criptomoeda
                 do
                 {
                     Console.Clear();
-                    Console.WriteLine("Selecionar carteira");
+                    Console.Write("Selecionar carteira\n\n");
                     foreach (Carteira carteira_encontrada in carteiras_encontradas)
                     {
                         carteira_encontrada.Imprime();
                     }
-                    Console.WriteLine("Escolha a carteira (1, 2, ..., n):");
+                    Console.Write("\nEscolha a carteira (1, 2, ..., n): ");
                     sel_cart = int.Parse(Console.ReadLine());
                 } while (sel_cart <= 0 || sel_cart > carteiras_encontradas.Count());
 
@@ -605,7 +606,7 @@ namespace Carteira_de_criptomoeda
             if (cliente_logado == null)
             {
                 Console.WriteLine("Nenhum cliente esta logado");
-                Console.WriteLine("Aperte qualquer tecla para continuar...");
+                Console.Write("Aperte qualquer tecla para continuar...");
                 Console.ReadKey();
                 return;
             }
@@ -637,10 +638,10 @@ namespace Carteira_de_criptomoeda
             Moeda moeda_a_depositar;
             double quantidade_a_depositar = 0;
 
-            Console.WriteLine("Digite o codigo da moeda: ");
+            Console.Write("Digite o codigo da moeda: ");
             moeda_codigo = Console.ReadLine();
             moeda_a_depositar = moedas.Find(r => r.Codigo == moeda_codigo);
-            Console.WriteLine("Digite a quantidade a ser depositada: ");
+            Console.Write("Digite a quantidade a ser depositada: ");
             quantidade_a_depositar = double.Parse(Console.ReadLine());
 
             carteira_selecionada.Depositar(moeda_a_depositar, quantidade_a_depositar);
@@ -658,10 +659,10 @@ namespace Carteira_de_criptomoeda
             Moeda moeda_a_sacar;
             double quantidade_a_sacar = 0;
 
-            Console.WriteLine("Digite o codigo da moeda: ");
+            Console.Write("Digite o codigo da moeda: ");
             moeda_codigo = Console.ReadLine();
             moeda_a_sacar = moedas.Find(r => r.Codigo == moeda_codigo);
-            Console.WriteLine("Digite a quantidade a ser sacada: ");
+            Console.Write("Digite a quantidade a ser sacada: ");
             quantidade_a_sacar = double.Parse(Console.ReadLine());
 
             carteira_selecionada.Sacar(moeda_a_sacar, quantidade_a_sacar);
@@ -679,7 +680,7 @@ namespace Carteira_de_criptomoeda
             Console.WriteLine("");
             Console.WriteLine("0 - Sair");
             Console.WriteLine("");
-            Console.WriteLine("Digite para escolher uma acao");
+            Console.Write("Digite para escolher uma acao: ");
 
             sel_m = Console.ReadKey();
 
@@ -698,7 +699,7 @@ namespace Carteira_de_criptomoeda
                     break;
                 default:
                     Console.WriteLine("Acao invalida");
-                    Console.WriteLine("Aperte qualquer botao para continuar...");
+                    Console.Write("Aperte qualquer botao para continuar...");
                     Console.ReadKey();
                     break;
             }
@@ -714,18 +715,15 @@ namespace Carteira_de_criptomoeda
             Console.WriteLine("Menu do admin");
             Console.WriteLine("");
             Console.WriteLine("1 - Inserir moeda");
-            Console.WriteLine("2 - Remover moeda WIP");
-            Console.WriteLine("3 - Imprimir moedas");
-            Console.WriteLine("4 - Inserir par de moeda");
-            Console.WriteLine("5 - Remover par de moeda WIP");
-            Console.WriteLine("6 - Imprimir pares de moedas");
-            Console.WriteLine("7 - Cadastrar corretora");
-            Console.WriteLine("8 - Remover corretora WIP");
-            Console.WriteLine("9 - Imprimir corretoras");
+            Console.WriteLine("2 - Imprimir moedas");
+            Console.WriteLine("3 - Inserir par de moeda");
+            Console.WriteLine("4 - Imprimir pares de moedas");
+            Console.WriteLine("5 - Cadastrar corretora");
+            Console.WriteLine("6 - Imprimir corretoras");
             Console.WriteLine("");
             Console.WriteLine("0 - Sair");
             Console.WriteLine("");
-            Console.WriteLine("Digite para escolher uma acao");
+            Console.Write("Digite para escolher uma acao: ");
 
             sel_a = Console.ReadKey();
 
@@ -735,45 +733,30 @@ namespace Carteira_de_criptomoeda
             {
                 case ConsoleKey.D0:
                     Console.WriteLine("Saindo do menu de admin");
-                    Console.WriteLine("Aperte qualquer botao para continuar...");
+                    Console.Write("Aperte qualquer botao para continuar...");
                     Console.ReadKey();
                     return;
                 case ConsoleKey.D1:
                     AdicionarMoeda();
                     break;
                 case ConsoleKey.D2:
-                    Console.WriteLine("WIP");
-                    Console.WriteLine("Aperte qualquer botao para continuar...");
-                    Console.ReadKey();
-                    break;
-                case ConsoleKey.D3:
                     ImprimeMoedas();
                     break;
-                case ConsoleKey.D4:
+                case ConsoleKey.D3:
                     AdicionarParMoeda();
                     break;
-                case ConsoleKey.D5:
-                    Console.WriteLine("WIP");
-                    Console.WriteLine("Aperte qualquer botao para continuar...");
-                    Console.ReadKey();
-                    break;
-                case ConsoleKey.D6:
+                case ConsoleKey.D4:
                     ImprimeParMoedas();
                     break;
-                case ConsoleKey.D7:
+                case ConsoleKey.D5:
                     CadastrarCorretora();
                     break;
-                case ConsoleKey.D8:
-                    Console.WriteLine("WIP");
-                    Console.WriteLine("Aperte qualquer botao para continuar...");
-                    Console.ReadKey();
-                    break;
-                case ConsoleKey.D9:
+                case ConsoleKey.D6:
                     ImprimeCorretoras();
                     break;
                 default:
                     Console.WriteLine("Acao invalida");
-                    Console.WriteLine("Aperte qualquer botao para continuar...");
+                    Console.Write("Aperte qualquer botao para continuar...");
                     Console.ReadKey();
                     break;
             }
@@ -793,7 +776,7 @@ namespace Carteira_de_criptomoeda
             Console.WriteLine("");
             Console.WriteLine("0 - Sair");
             Console.WriteLine("");
-            Console.WriteLine("Digite para escolher uma acao");
+            Console.Write("Digite para escolher uma acao: ");
 
             sel_l = Console.ReadKey();
 
@@ -803,7 +786,7 @@ namespace Carteira_de_criptomoeda
             {
                 case ConsoleKey.D0:
                     Console.WriteLine("Saindo do menu de login...");
-                    Console.WriteLine("Aperte qualquer botao para continuar...");
+                    Console.Write("Aperte qualquer botao para continuar...");
                     Console.ReadKey();
                     return;
                 case ConsoleKey.D1:
@@ -814,7 +797,7 @@ namespace Carteira_de_criptomoeda
                     break;
                 default:
                     Console.WriteLine("Acao invalida");
-                    Console.WriteLine("Aperte qualquer botao para continuar...");
+                    Console.Write("Aperte qualquer botao para continuar...");
                     Console.ReadKey();
                     break;
             }
@@ -842,7 +825,7 @@ namespace Carteira_de_criptomoeda
             Console.WriteLine("");
             Console.WriteLine("0 - Deslogar");
             Console.WriteLine("");
-            Console.WriteLine("Digite para escolher uma acao");
+            Console.Write("Digite para escolher uma acao: ");
 
             sel_c = Console.ReadKey();
 
@@ -852,15 +835,14 @@ namespace Carteira_de_criptomoeda
             {
                 case ConsoleKey.D0:
                     Deslogar();
-                    carteira_selecionada = null;
                     Console.WriteLine("Saindo do menu de cliente...");
-                    Console.WriteLine("Aperte qualquer botao para continuar...");
+                    Console.Write("Aperte qualquer botao para continuar...");
                     Console.ReadKey();
                     return;
                 case ConsoleKey.D1:
-                    Console.WriteLine("Carteira selecionada");
+                    Console.Write("Carteira selecionada\n\n");
                     carteira_selecionada.Imprime();
-                    Console.WriteLine("Aperte qualquer botao para continuar...");
+                    Console.Write("\nAperte qualquer botao para continuar...");
                     Console.ReadKey();
                     break;
                 case ConsoleKey.D2:
@@ -877,7 +859,7 @@ namespace Carteira_de_criptomoeda
                     break;
                 default:
                     Console.WriteLine("Acao invalida");
-                    Console.WriteLine("Aperte qualquer botao para continuar...");
+                    Console.Write("Aperte qualquer botao para continuar...");
                     Console.ReadKey();
                     break;
             }
