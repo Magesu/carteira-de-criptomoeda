@@ -327,16 +327,35 @@ namespace Carteira_de_criptomoeda
             Console.ReadKey();
         }
 
+        public void ImprimeCorretorasSemAperteQualquerBotao()
+        {
+            Console.Write("Corretoras\n\n");
+
+            if (corretoras.Count() < 1)
+            {
+                Console.WriteLine("Nenhuma corretora encontrada");
+            }
+            else
+            {
+                foreach (Corretora corretora in corretoras)
+                {
+                    corretora.Imprime();
+                    Console.WriteLine();
+                }
+            }
+        }
+
         public Corretora? EncontrarCorretora()
         {
             Corretora? corretora;
             ConsoleKeyInfo sel_modo;
 
-            Console.WriteLine("Encontrar corretora");
-            Console.Write("Encontrar corretora pelo codigo (d) ou nome (n)? ");
+            Console.Write("Encontrar corretora\n\n");
+            ImprimeCorretorasSemAperteQualquerBotao();
+            Console.Write("\nEncontrar corretora pelo codigo (d) ou nome (n)? ");
             sel_modo = Console.ReadKey();
+            Console.WriteLine();
 
-            Console.Clear();
             if (sel_modo.Key == ConsoleKey.D)
             {
                 int codigo;
@@ -346,7 +365,6 @@ namespace Carteira_de_criptomoeda
                     Console.WriteLine("Encontrar corretora");
                     Console.Write("Digite o codigo: ");
                     codigo = int.Parse(Console.ReadLine());
-                    Console.Clear();
                 } while (codigo <= 0 || codigo > corretoras.Count());
                 
                 corretora = EncontrarCorretora(codigo);
@@ -400,7 +418,6 @@ namespace Carteira_de_criptomoeda
 
                 do
                 {
-                    Console.Clear();
                     Console.Write("Corretoras encontradas\n\n");
                     foreach (Corretora corretora_encontrada in corretoras_encontradas)
                     {
@@ -429,10 +446,9 @@ namespace Carteira_de_criptomoeda
             String nome, email, celular, senha, passhash;
             Cliente novo_cliente;
 
-            Console.WriteLine("Cadastrar cliente");
-
             do
             {
+                Console.WriteLine("Cadastrar cliente");
                 Console.Write("Digite o nome do cliente: ");
                 nome = Console.ReadLine();
                 Console.Clear();
@@ -440,6 +456,7 @@ namespace Carteira_de_criptomoeda
 
             do
             {
+                Console.WriteLine("Cadastrar cliente");
                 Console.Write("Digite o email do cliente: ");
                 email = Console.ReadLine();
                 Console.Clear();
@@ -447,6 +464,7 @@ namespace Carteira_de_criptomoeda
 
             do
             {
+                Console.WriteLine("Cadastrar cliente");
                 Console.Write("Digite o celular do cliente: ");
                 celular = Console.ReadLine();
                 Console.Clear();
@@ -454,6 +472,7 @@ namespace Carteira_de_criptomoeda
 
             do
             {
+                Console.WriteLine("Cadastrar cliente");
                 Console.Write("Digite a senha do cliente: ");
                 senha = Console.ReadLine();
                 Console.Clear();
@@ -822,6 +841,7 @@ namespace Carteira_de_criptomoeda
             Console.WriteLine("3 - Sacar");
             Console.WriteLine("4 - Selecionar outra carteira");
             Console.WriteLine("5 - Criar outra carteira");
+            Console.WriteLine("6 - Imprime corretoras");
             Console.WriteLine("");
             Console.WriteLine("0 - Deslogar");
             Console.WriteLine("");
@@ -856,6 +876,9 @@ namespace Carteira_de_criptomoeda
                     break;
                 case ConsoleKey.D5:
                     CadastrarCarteira();
+                    break;
+                case ConsoleKey.D6:
+                    ImprimeCorretoras();
                     break;
                 default:
                     Console.WriteLine("Acao invalida");
