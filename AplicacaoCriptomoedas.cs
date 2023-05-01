@@ -291,8 +291,9 @@ namespace Carteira_de_criptomoeda
                 Console.WriteLine("Cadastrar corretora");
                 Console.WriteLine("Digite o nome da corretora:");
                 nome = Console.ReadLine();
-                AdicionarCorretora(nome);
             } while (nome == "");
+
+            AdicionarCorretora(nome);
         }
         
         public void ImprimeCorretoras()
@@ -427,8 +428,8 @@ namespace Carteira_de_criptomoeda
             passhash = "batata" + senha;
 
             novo_cliente = AdicionarCliente(nome, email, celular, passhash);
-
-            CadastrarCarteira(novo_cliente);
+            cliente_logado = novo_cliente;
+            CadastrarCarteira();
         }
 
         public void ImprimeClientes()
@@ -454,6 +455,14 @@ namespace Carteira_de_criptomoeda
             return cliente;
         }
 
+        public Carteira AdicionarCarteira(Corretora corretora, String endereco, Cliente cliente)
+        {
+            Carteira nova_carteira;
+            nova_carteira = new Carteira(endereco, cliente);
+            corretora.InsereCarteira(nova_carteira);
+            return nova_carteira;
+        }
+
         public void CadastrarCarteira()
         {
             if (cliente_logado == null)
@@ -461,33 +470,29 @@ namespace Carteira_de_criptomoeda
                 return;
             }
 
-            CadastrarCarteira(cliente_logado);
-        }
-
-        public void CadastrarCarteira(Cliente cliente)
-        {
             String endereco;
-            Carteira carteira;
-            int codigo_corretora;
             Corretora corretora_escolhida;
 
             Console.Clear();
             Console.WriteLine("Cadastrar carteira");
 
-            Console.WriteLine("Digite o codigo da corretora: ");
-            codigo_corretora = int.Parse(Console.ReadLine());
+            corretora_escolhida = EncontrarCorretora();
 
-            corretora_escolhida = corretoras.Find(r => r.codigo == codigo_corretora);
             Console.WriteLine("Digite o endereco da carteira: ");
             endereco = Console.ReadLine();
 
-            carteira = new Carteira(endereco, cliente);
-            corretora_escolhida.InsereCarteira(carteira);
+            AdicionarCarteira(corretora_escolhida, endereco, cliente_logado);
         }
 
         public void LogarCliente()
         {
-            String email, password;
+            if (cliente_logado != null)
+            {
+                Console.WriteLine("Algum cliente jah estah logado");
+                return;
+            }
+
+            String email, password, passhash;
 
             Console.WriteLine("Fazer login");
             Console.WriteLine("Digite o email do cliente: ");
@@ -495,7 +500,9 @@ namespace Carteira_de_criptomoeda
             Console.WriteLine("Digite a senha do cliente: ");
             password = Console.ReadLine();
 
-            cliente_logado = clientes.Find(r => r.Email == email && r.PassHash == password);
+            passhash = "batata" + password;
+
+            cliente_logado = clientes.Find(r => r.Email == email && r.PassHash == passhash);
             
             if(cliente_logado == null)
             {
@@ -515,6 +522,45 @@ namespace Carteira_de_criptomoeda
             Console.WriteLine("Cliente deslogado");
         }
         
+        public Carteira? EncontrarCarteira(Corretora corretora, Cliente cliente)
+        {
+            Carteira? carteira = null;
+            List<Carteira> carteiras_encontradas = new List<Carteira>();
+            carteiras_encontradas = corretora.carteiras.FindAll(r => r.cliente == cliente);
+
+            if (carteiras_encontradas.Count() == 0)
+            {
+                Console.Clear();
+                Console.WriteLine("Nenhuma carteira encontrada");
+                Console.WriteLine("Aperte qualquer tecla para continuar...");
+                Console.ReadKey();
+            }
+            else if (carteiras_encontradas.Count() == 1)
+            {
+                carteira = carteiras_encontradas.ElementAt(0);
+            }
+            else
+            {
+                int sel_cart;
+
+                do
+                {
+                    Console.Clear();
+                    Console.WriteLine("Selecionar carteira");
+                    foreach (Carteira carteira_encontrada in carteiras_encontradas)
+                    {
+                        carteira_encontrada.Imprime();
+                    }
+                    Console.WriteLine("Escolha a carteira (1, 2, ..., n):");
+                    sel_cart = int.Parse(Console.ReadLine());
+                } while (sel_cart <= 0 || sel_cart > carteiras_encontradas.Count());
+
+                carteira = carteiras_encontradas.ElementAt(sel_cart - 1);
+            }
+
+            return carteira;
+        }
+        
         public void SelecionarCarteira()
         {
             if (cliente_logado == null)
@@ -527,123 +573,17 @@ namespace Carteira_de_criptomoeda
 
             Console.Clear();
             Console.WriteLine("Selecionar carteira");
-
-            ConsoleKeyInfo sel_corr;
+            
             Corretora corretora;
 
-            Console.WriteLine("Selecionar corretora");
-            Console.WriteLine("Selecionar a corretora por codigo (d) ou nome (n)?");
-            sel_corr = Console.ReadKey();
+            corretora = EncontrarCorretora();
 
-            Console.Clear();
-
-            if (sel_corr.Key == ConsoleKey.D)
+            if (corretora == null)
             {
-                int codigo_corretora = 0;
-
-                Console.WriteLine("Digite o codigo da corretora: ");
-                codigo_corretora = int.Parse(Console.ReadLine());
-
-                if (codigo_corretora < 0 || codigo_corretora > corretoras.Count())
-                {
-                    Console.Clear();
-                    Console.WriteLine("Codigo invalido");
-                    Console.WriteLine("Aperte qualquer tecla para continuar...");
-                    Console.ReadKey();
-                    return;
-                }
-
-                corretora = corretoras.Find(r => r.codigo == codigo_corretora);
-
-                if (corretora == null)
-                {
-                    Console.Clear();
-                    Console.WriteLine("Corretora nao encontrada");
-                    Console.WriteLine("Aperte qualquer tecla para continuar...");
-                    Console.ReadKey();
-                    return;
-                }
-            }
-            else if(sel_corr.Key == ConsoleKey.N)
-            {
-                String nome_corretora;
-                List<Corretora> corretoras_encontradas = new List<Corretora>();
-
-                Console.WriteLine("Digite o nome da corretora: ");
-                nome_corretora = Console.ReadLine();
-
-                corretoras_encontradas = corretoras.FindAll(r => r.nome == nome_corretora);
-
-                if (corretoras_encontradas.Count() == 0)
-                {
-                    Console.WriteLine("Nenhuma corretora encontrada");
-                    Console.WriteLine("Aperte qualquer tecla para continuar...");
-                    Console.ReadKey();
-                    return;
-                }
-                else if(corretoras_encontradas.Count() == 1)
-                {
-                    corretora = corretoras_encontradas.ElementAt(0);
-                }
-                else
-                {
-                    int codigo_corretora;
-
-                    Console.WriteLine("Corretoras encontradas:");
-                    foreach(Corretora corretora_encontrada in corretoras_encontradas)
-                    {
-                        corretora_encontrada.Imprime();
-                    }
-
-                    do
-                    {
-                        Console.WriteLine("Digite o codigo da corretora selecionada");
-                        codigo_corretora = int.Parse(Console.ReadLine());
-
-                        corretora = corretoras_encontradas.Find(r => r.codigo == codigo_corretora);
-                    } while(corretora == null);
-                }
-            }
-            else
-            {
-                Console.WriteLine("Opcao invalida");
                 return;
             }
 
-            List<Carteira> carteiras_encontradas = new List<Carteira>();
-            carteiras_encontradas = corretora.carteiras.FindAll(r => r.cliente == cliente_logado);
-
-            if (carteiras_encontradas.Count() == 0 )
-            {
-                Console.Clear();
-                Console.WriteLine("Nenhuma carteira encontrada");
-                Console.WriteLine("Aperte qualquer tecla para continuar...");
-                Console.ReadKey();
-            }
-            else if(carteiras_encontradas.Count() == 1)
-            {
-                carteira_selecionada = carteiras_encontradas.ElementAt(0);
-            }
-            else
-            {
-                
-
-                int sel_cart;
-
-                do
-                {
-                    Console.Clear();
-                    Console.WriteLine("Selecionar carteira");
-                    foreach (Carteira carteira in carteiras_encontradas)
-                    {
-                        carteira.Imprime();
-                    }
-                    Console.WriteLine("Escolha a carteira (1, 2, ..., n):");
-                    sel_cart = int.Parse(Console.ReadLine());
-                } while (sel_cart < 1 || sel_cart > carteiras_encontradas.Count());
-
-                carteira_selecionada = carteiras_encontradas.ElementAt(sel_cart - 1);
-            }
+            carteira_selecionada = EncontrarCarteira(corretora, cliente_logado);
         }
 
         public void LerEDepositar()
@@ -760,7 +700,7 @@ namespace Carteira_de_criptomoeda
                     Console.ReadKey();
                     return;
                 case ConsoleKey.D1:
-                    //LerMoeda();
+                    AdicionarMoeda();
                     break;
                 case ConsoleKey.D2:
                     Console.WriteLine("WIP");
@@ -771,7 +711,7 @@ namespace Carteira_de_criptomoeda
                     ImprimeMoedas();
                     break;
                 case ConsoleKey.D4:
-                    //LerParMoeda();
+                    AdicionarParMoeda();
                     break;
                 case ConsoleKey.D5:
                     Console.WriteLine("WIP");

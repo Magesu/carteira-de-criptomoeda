@@ -29,6 +29,14 @@ namespace Carteira_de_criptomoeda
             carteiras.Add(nova_carteira);
         }
 
+        public Carteira InsereCarteira(String endereco, Cliente cliente)
+        {
+            Carteira nova_carteira;
+            nova_carteira = new Carteira(endereco, cliente);
+            carteiras.Add(nova_carteira);
+            return nova_carteira;
+        }
+
         public void RemoveCarteira(String endereco)
         {
             var carteira_para_remover = carteiras.Find(r => r.endereco == endereco);

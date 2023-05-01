@@ -16,17 +16,10 @@ internal class Program
 
         aplicacao.AdicionarCorretora("Batata");
         aplicacao.AdicionarCorretora("Banana");
-        //aplicacao.clientes.Add(new Cliente(0, "Bob", "bob@gmail.com", "123456789123", "123"));
-        //aplicacao.corretoras[0].InsereCarteira(new Carteira("dhsjakhjdksahjd", aplicacao.clientes[0]));
+        Cliente c1;
+        c1 = aplicacao.AdicionarCliente("Bob", "bob@gmail.com", "123456789123", "batata123");
+        aplicacao.AdicionarCarteira(aplicacao.EncontrarCorretora(1),"hfddjshfiahsjdihijadsf",c1);
 
-        Corretora corretora;
-
-        aplicacao.ImprimeCorretoras();
-        corretora = aplicacao.EncontrarCorretora();
-
-        if (corretora != null)
-        {
-            corretora.Imprime();
-        }
+        aplicacao.Menu();
     }
 }
