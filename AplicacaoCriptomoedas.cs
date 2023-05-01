@@ -862,6 +862,7 @@ namespace Carteira_de_criptomoeda
                 case ConsoleKey.D1:
                     Console.Write("Carteira selecionada\n\n");
                     carteira_selecionada.Imprime();
+                    carteira_selecionada.ImprimeItensCarteira();
                     Console.Write("\nAperte qualquer botao para continuar...");
                     Console.ReadKey();
                     break;
